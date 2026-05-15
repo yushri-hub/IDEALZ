@@ -1,0 +1,98 @@
+
+        // INDEXD VISUAL EFFECTS: PARTICLES + CURSOR GLOW
+        (function() {
+            const glow = document.getElementById('cursorGlow');
+            let mx = -300, my = -300, cx = -300, cy = -300;
+            if (glow) {
+                document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+                (function animGlow() {
+                    cx += (mx - cx) * 0.09; cy += (my - cy) * 0.09;
+                    glow.style.left = cx + 'px'; glow.style.top = cy + 'px';
+                    requestAnimationFrame(animGlow);
+                })();
+                if ('ontouchstart' in window) glow.style.display = 'none';
+            }
+
+            const canvas = document.getElementById('bgCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            const COUNT = 45, DIST = 120;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', () => {
+                resize();
+                particles.forEach(p => { p.x = Math.random()*canvas.width; p.y = Math.random()*canvas.height; });
+            });
+
+            function isDark() { return document.documentElement.dataset.theme === 'dark'; }
+
+            for (let i = 0; i < COUNT; i++) {
+                particles.push({
+                    x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+                    vx:(Math.random()-0.5)*0.30, vy:(Math.random()-0.5)*0.30,
+                    r: Math.random()*2+0.8, isOchre: Math.random()<0.14
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const pc = isDark() ? 'rgba(126,202,200,' : 'rgba(0,61,59,';
+                const oc = 'rgba(232,141,27,';
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    const dxM = mx - p.x, dyM = my - p.y;
+                    const dm = Math.sqrt(dxM*dxM + dyM*dyM);
+                    if (dm < 180 && dm > 1) { p.vx += (dxM/dm)*0.012; p.vy += (dyM/dm)*0.012; }
+                    p.x += p.vx; p.y += p.vy; p.vx *= 0.998; p.vy *= 0.998;
+                    if (p.x < -15) p.x = canvas.width+15;
+                    if (p.x > canvas.width+15) p.x = -15;
+                    if (p.y < -15) p.y = canvas.height+15;
+                    if (p.y > canvas.height+15) p.y = -15;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                    ctx.fillStyle = p.isOchre ? oc+'0.5)' : pc+'0.38)';
+                    ctx.fill();
+                    if (p.isOchre) {
+                        ctx.beginPath(); ctx.arc(p.x, p.y, p.r*3, 0, Math.PI*2);
+                        ctx.fillStyle = oc+'0.08)'; ctx.fill();
+                    }
+                }
+
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i+1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const d = Math.sqrt(dx*dx + dy*dy);
+                        if (d < DIST) {
+                            const op = (1 - d/DIST) * (isDark() ? 0.09 : 0.10);
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = pc + op + ')';
+                            ctx.lineWidth = 0.7; ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+
+            const topbar = document.querySelector('.topbar');
+            window.addEventListener('scroll', () => {
+                topbar && topbar.classList.toggle('scrolled', window.scrollY > 20);
+            });
+
+            const revealObs = new IntersectionObserver(entries => {
+                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); });
+            }, { threshold:0.15 });
+            document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+            console.log('%c IDEALZ.OPS %c All nodes operational.', 'color:#E88D1B;font-weight:bold;', 'color:#003D3B;');
+        })();
