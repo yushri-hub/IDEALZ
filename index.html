@@ -8,6 +8,71 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap"
         rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+            from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+        import { getFirestore, collection, doc, getDocs, getDoc, setDoc,
+            addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp }
+            from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+        // ── PASTE YOUR FIREBASE CONFIG HERE ──
+        const firebaseConfig = {
+            apiKey: "AIzaSyBtnMfxceR7gdssseDI0qm4i_otIgmPMQU",
+            authDomain: "idealz-app-baba1.firebaseapp.com",
+            projectId: "idealz-app-baba1",
+            storageBucket: "idealz-app-baba1.firebasestorage.app",
+            messagingSenderId: "122688271653",
+            appId: "1:122688271653:web:af96b6d9a81de75934d6cc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db_firebase = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // Make globally accessible
+        window.fbAuth = auth;
+        window.fbDB = db_firebase;
+        window.fbProvider = provider;
+        window.fbFns = {
+            signInWithPopup, signOut, onAuthStateChanged,
+            collection, doc, getDocs, getDoc, setDoc,
+            addDoc, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp
+        };
+
+        // Auth state listener
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                window.currentUser = user;
+                // Get user role from Firestore
+                const userDoc = await getDoc(doc(db_firebase, 'users', user.uid));
+                if (userDoc.exists()) {
+                    window.currentRole = userDoc.data().role; // 'admin', 'operator', or null
+                    window.currentUserApproved = userDoc.data().approved;
+                } else {
+                    // First time login — create profile, pending approval
+                    await setDoc(doc(db_firebase, 'users', user.uid), {
+                        email: user.email,
+                        name: user.displayName,
+                        photoURL: user.photoURL,
+                        role: 'pending',
+                        approved: false,
+                        createdAt: serverTimestamp()
+                    });
+                    window.currentRole = 'pending';
+                    window.currentUserApproved = false;
+                }
+                window.updateUIForRole();
+            } else {
+                window.currentUser = null;
+                window.currentRole = 'public';
+                window.updateUIForRole();
+            }
+        });
+    </script>
+    <script>window.updateUIForRole = function () { };</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
     <style>
@@ -1908,6 +1973,88 @@
         .collapsible-body.open {
             display: block;
         }
+
+        /* ── AUTH & ROLE STYLES ── */
+        .role-badge {
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .role-admin {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .role-operator {
+            background: #059669;
+            color: white;
+        }
+
+        .role-public {
+            background: var(--border);
+            color: var(--text2);
+        }
+
+        .role-pending {
+            background: var(--amber);
+            color: white;
+        }
+
+        .locked-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .locked-box {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 32px 24px;
+            max-width: 340px;
+            width: 100%;
+        }
+
+        .locked-box h2 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .locked-box p {
+            font-size: 13px;
+            color: var(--text2);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Hide edit controls for public/read-only users */
+        .edit-only {
+            display: none;
+        }
+
+        body.role-admin .edit-only,
+        body.role-operator .edit-only {
+            display: initial;
+        }
+
+        body.role-admin .edit-only-flex,
+        body.role-operator .edit-only-flex {
+            display: flex;
+        }
+
+        .edit-only-flex {
+            display: none;
+        }
     </style>
 </head>
 
@@ -1931,6 +2078,14 @@
                 <div class="date" id="hdrDate">—</div>
             </div>
             <button class="dark-btn" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
+            <div id="authBtn" onclick="handleAuthClick()" style="
+    display:flex; align-items:center; gap:7px; padding:7px 12px;
+    background:var(--brand-grad-2); color:white; border-radius:10px;
+    font-size:12px; font-weight:600; cursor:pointer; border:none;
+  ">
+                <img id="authAvatar" src="" style="width:20px;height:20px;border-radius:50%;display:none;">
+                <span id="authLabel">Sign In</span>
+            </div>
         </div>
     </div>
 
@@ -2725,6 +2880,15 @@
         </div>
     </div>
 
+    <!-- User Menu Modal -->
+    <div class="modal-backdrop" id="modalUserMenu">
+        <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <div class="modal-title">👤 My Account</div>
+            <div id="userMenuContent"></div>
+        </div>
+    </div>
+
     <script>
         // ══════════════════════════════════════════════════
         //  DATABASE
@@ -2767,6 +2931,114 @@
         }
 
         function saveDB() { localStorage.setItem(DB_KEY, JSON.stringify(db)); }
+
+        // ══════════════════════════════════════════════════
+        //  FIREBASE DATA LAYER
+        // ══════════════════════════════════════════════════
+        function canSyncToFirebase() {
+            const role = window.currentRole;
+            return !!(window.fbDB && window.fbFns && (role === 'admin' || role === 'operator'));
+        }
+
+        async function loadFromFirebase() {
+            // If no Firebase SDK, load from localStorage as fallback
+            if (!window.fbDB || !window.fbFns) { loadDB(); return; }
+
+            // Guests and pending users keep local data; cloud sync requires admin/operator
+            if (!canSyncToFirebase()) {
+                loadDB();
+                refreshHome();
+                renderStudentList();
+                renderVolunteerList();
+                renderHistory();
+                return;
+            }
+
+            try {
+                const { collection, getDocs } = window.fbFns;
+                const fdb = window.fbDB;
+
+                // Load students
+                const studSnap = await getDocs(collection(fdb, 'students'));
+                db.students = [];
+                studSnap.forEach(d => db.students.push({ id: d.id, ...d.data() }));
+
+                // Load volunteers
+                const volSnap = await getDocs(collection(fdb, 'volunteers'));
+                db.volunteers = [];
+                volSnap.forEach(d => db.volunteers.push({ id: d.id, ...d.data() }));
+
+                // Load sessions
+                const sesSnap = await getDocs(collection(fdb, 'sessions'));
+                db.sessions = [];
+                sesSnap.forEach(d => db.sessions.push({ id: d.id, ...d.data() }));
+                db.sessions.sort((a, b) => a.date?.localeCompare(b.date));
+
+                // Load settings
+                const { getDoc, doc } = window.fbFns;
+                const setSnap = await getDoc(doc(fdb, 'settings', 'main'));
+                if (setSnap.exists()) db.settings = setSnap.data();
+
+                refreshHome();
+                renderStudentList();
+                renderVolunteerList();
+                renderHistory();
+                showToast('🔄 Data synced from cloud');
+            } catch (e) {
+                console.error('Firebase load error:', e);
+                loadDB(); // Fallback to local
+            }
+        }
+
+        async function saveStudentToFirebase(student) {
+            if (!canSyncToFirebase()) return;
+            const { doc, setDoc } = window.fbFns;
+            await setDoc(doc(window.fbDB, 'students', student.id), student);
+        }
+
+        async function deleteStudentFromFirebase(id) {
+            if (!canSyncToFirebase()) return;
+            const { doc, deleteDoc } = window.fbFns;
+            await deleteDoc(doc(window.fbDB, 'students', id));
+        }
+
+        async function saveVolunteerToFirebase(volunteer) {
+            if (!canSyncToFirebase()) return;
+            const { doc, setDoc } = window.fbFns;
+            await setDoc(doc(window.fbDB, 'volunteers', volunteer.id), volunteer);
+        }
+
+        async function deleteVolunteerFromFirebase(id) {
+            if (!canSyncToFirebase()) return;
+            const { doc, deleteDoc } = window.fbFns;
+            await deleteDoc(doc(window.fbDB, 'volunteers', id));
+        }
+
+        async function saveSessionToFirebase(session) {
+            if (!canSyncToFirebase()) return;
+            const { doc, setDoc } = window.fbFns;
+            await setDoc(doc(window.fbDB, 'sessions', session.id), session);
+        }
+
+        async function deleteSessionFromFirebase(id) {
+            if (!canSyncToFirebase()) return;
+            const { doc, deleteDoc } = window.fbFns;
+            await deleteDoc(doc(window.fbDB, 'sessions', id));
+        }
+
+        async function saveSettingsToFirebase() {
+            if (!canSyncToFirebase() || window.currentRole !== 'admin') return;
+            const { doc, setDoc } = window.fbFns;
+            await setDoc(doc(window.fbDB, 'settings', 'main'), db.settings);
+        }
+
+        function canEdit() {
+            const role = window.currentRole;
+            if (role === 'admin' || role === 'operator') return true;
+            showToast('🔒 You need operator access to edit');
+            return false;
+        }
+
         function saveSession() { localStorage.setItem(SES_KEY, JSON.stringify(currentSession)); }
         function saveAtt() {
             localStorage.setItem(ATT_KEY, JSON.stringify(todayAtt));
@@ -2859,6 +3131,8 @@
             if (!m.pointsLog) m.pointsLog = [];
             m.pointsLog.unshift({ amount, reason, category, date: todayISO() });
             saveDB();
+            if (memberType === 'student') saveStudentToFirebase(m);
+            else saveVolunteerToFirebase(m);
         }
 
         // ══════════════════════════════════════════════════
@@ -3292,6 +3566,7 @@
             db.sessions.push(sessionRecord);
             db.sessions.sort((a, b) => a.date.localeCompare(b.date));
             saveDB();
+            saveSessionToFirebase(sessionRecord);
 
             generateReport(sessionRecord);
             goTab('report');
@@ -3404,6 +3679,7 @@
             };
             db.students.push(stu);
             saveDB();
+            saveStudentToFirebase(stu);
             ['nsFName', 'nsLName', 'nsID', 'nsDOB', 'nsParent', 'nsMobile', 'nsWA', 'nsAddr', 'nsSchool', 'nsEmerg', 'nsNote'].forEach(id => { document.getElementById(id).value = ''; });
             document.getElementById('nsGrade').value = '';
             document.getElementById('nsGender').value = '';
@@ -3500,6 +3776,7 @@
             if (!confirm('Delete this student? This cannot be undone.')) return;
             db.students = db.students.filter(s => s.id !== id);
             saveDB();
+            deleteStudentFromFirebase(id);
             closeModal('modalStudent');
             renderStudentList();
             showToast('🗑️ Student deleted');
@@ -3555,6 +3832,7 @@
             s.school = document.getElementById('efSchool').value.trim();
             s.emergency = document.getElementById('efEmerg').value.trim();
             saveDB();
+            saveStudentToFirebase(s);
             closeModal('modalStudent');
             renderStudentList();
             showToast('✅ Student updated!');
@@ -3660,6 +3938,7 @@
             };
             db.volunteers.push(vol);
             saveDB();
+            saveVolunteerToFirebase(vol);
             ['nvFName', 'nvLName', 'nvMobile', 'nvEmail', 'nvSkills', 'nvNote'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
             document.getElementById('nvRole').value = '';
             renderVolunteerList();
@@ -3715,6 +3994,7 @@
             if (!confirm('Delete this volunteer?')) return;
             db.volunteers = db.volunteers.filter(v => v.id !== id);
             saveDB();
+            deleteVolunteerFromFirebase(id);
             closeModal('modalVolunteer');
             renderVolunteerList();
             showToast('🗑️ Deleted');
@@ -3755,6 +4035,7 @@
             v.email = document.getElementById('evEmail').value.trim();
             v.skills = document.getElementById('evSkills').value.trim();
             saveDB();
+            saveVolunteerToFirebase(v);
             closeModal('modalVolunteer');
             renderVolunteerList();
             showToast('✅ Updated!');
@@ -3830,6 +4111,8 @@
             if (!m.notes) m.notes = [];
             m.notes.push({ text, type: noteType, date: todayISO() });
             saveDB();
+            if (type === 'student') saveStudentToFirebase(m);
+            else saveVolunteerToFirebase(m);
             closeModal('modalNote');
             showToast('📝 Note saved!');
         }
@@ -3926,6 +4209,7 @@
             if (!confirm('Delete this session record?')) return;
             db.sessions = db.sessions.filter(s => s.id !== id);
             saveDB();
+            deleteSessionFromFirebase(id);
             closeModal('modalHistory');
             renderHistory();
             showToast('🗑️ Session deleted');
@@ -3946,6 +4230,7 @@
             // Remove from sessions so it'll re-save
             db.sessions = db.sessions.filter(x => x.id !== id);
             saveDB();
+            deleteSessionFromFirebase(id);
             saveAtt();
             goTab('session');
             loadSessionFields();
@@ -4047,6 +4332,7 @@
             db.sessions.push(ses);
             db.sessions.sort((a, b) => a.date.localeCompare(b.date));
             saveDB();
+            saveSessionToFirebase(ses);
             Object.keys(psAtt).forEach(k => delete psAtt[k]);
             Object.keys(psVAtt).forEach(k => delete psVAtt[k]);
             closeModal('modalPastSession');
@@ -4293,7 +4579,7 @@
             document.getElementById('darkToggle').checked = document.documentElement.dataset.theme === 'dark';
         }
 
-        function saveSetting(key, val) { db.settings[key] = val; saveDB(); }
+        function saveSetting(key, val) { db.settings[key] = val; saveDB(); saveSettingsToFirebase(); }
 
         function exportAllData() {
             const pkg = { type: 'idealz_v2_export', exportDate: new Date().toISOString(), ...db };
@@ -4325,6 +4611,16 @@
             if (pkg.sessions) pkg.sessions.forEach(s => { if (!db.sessions.find(x => x.id === s.id)) db.sessions.push(s); });
             if (pkg.settings) Object.assign(db.settings, pkg.settings);
             saveDB();
+            if (window.fbDB && canSyncToFirebase()) {
+                (async () => {
+                    try {
+                        for (const s of db.students) await saveStudentToFirebase(s);
+                        for (const v of db.volunteers) await saveVolunteerToFirebase(v);
+                        for (const ses of db.sessions) await saveSessionToFirebase(ses);
+                        await saveSettingsToFirebase();
+                    } catch (err) { console.error('Firebase sync after import:', err); }
+                })();
+            }
             closeModal('modalSync');
             goTab('home');
             showToast('✅ Data imported!');
@@ -4334,7 +4630,12 @@
 
         function confirmClearHistory() {
             if (confirm('Clear all session history? Students and volunteers will be kept.')) {
-                db.sessions = []; saveDB(); renderHistory(); showToast('🗑️ History cleared');
+                const ids = db.sessions.map(s => s.id);
+                db.sessions = [];
+                saveDB();
+                ids.forEach(id => deleteSessionFromFirebase(id));
+                renderHistory();
+                showToast('🗑️ History cleared');
             }
         }
 
@@ -4400,6 +4701,139 @@
         }
 
         init();
+
+        // ══════════════════════════════════════════════════
+        //  AUTH & ROLE MANAGEMENT
+        // ══════════════════════════════════════════════════
+        function handleAuthClick() {
+            if (!window.fbFns || !window.fbAuth) {
+                showToast('⚠️ Sign-in is still loading. Try again in a moment.');
+                return;
+            }
+            if (window.currentUser) {
+                // Show user menu
+                openUserMenu();
+            } else {
+                // Sign in
+                window.fbFns.signInWithPopup(window.fbAuth, window.fbProvider)
+                    .then(() => showToast('✅ Signed in!'))
+                    .catch(e => showToast('❌ Sign-in failed: ' + e.message));
+            }
+        }
+
+        function handleSignOut() {
+            if (!window.fbFns || !window.fbAuth) return;
+            window.fbFns.signOut(window.fbAuth)
+                .then(() => { showToast('👋 Signed out'); closeModal('modalUserMenu'); })
+                .catch(e => showToast('❌ Error: ' + e.message));
+        }
+
+        window.updateUIForRole = function () {
+            const role = window.currentRole || 'public';
+            const user = window.currentUser;
+
+            // Update body class
+            document.body.classList.remove('role-admin', 'role-operator', 'role-public', 'role-pending');
+            document.body.classList.add('role-' + role);
+
+            // Update auth button
+            const label = document.getElementById('authLabel');
+            const avatar = document.getElementById('authAvatar');
+            if (user) {
+                label.textContent = role === 'admin' ? '👑 Admin' : role === 'operator' ? '🛠 Operator' : '⏳ Pending';
+                if (user.photoURL) { avatar.src = user.photoURL; avatar.style.display = 'block'; }
+            } else {
+                label.textContent = 'Sign In';
+                avatar.style.display = 'none';
+            }
+
+            // Reload data from Firebase
+            if (typeof loadFromFirebase === 'function') loadFromFirebase();
+        };
+
+        function openUserMenu() {
+            const user = window.currentUser;
+            const role = window.currentRole || 'public';
+            const el = document.getElementById('userMenuContent');
+            if (!el) return;
+            el.innerHTML = `
+    <div style="text-align:center;padding-bottom:16px;border-bottom:1px solid var(--border);">
+      ${user.photoURL ? `<img src="${user.photoURL}" style="width:56px;height:56px;border-radius:50%;margin-bottom:8px;">` : ''}
+      <div style="font-weight:700;font-size:15px;">${user.displayName || 'User'}</div>
+      <div style="font-size:12px;color:var(--text2);">${user.email}</div>
+      <div style="margin-top:8px;"><span class="role-badge role-${role}">${role.toUpperCase()}</span></div>
+    </div>
+    ${role === 'admin' ? `
+      <div style="margin-top:16px;">
+        <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;">USER MANAGEMENT</div>
+        <div id="userMgmtList">Loading...</div>
+        <div style="margin-top:12px;">
+          <label style="font-size:11px;">Add User by Email</label>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <input type="email" id="newUserEmail" placeholder="email@gmail.com" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;">
+            <select id="newUserRole" style="padding:8px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text);font-size:12px;">
+              <option value="operator">Operator</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-full" style="margin-top:8px;" onclick="addApprovedUser()">➕ Approve User</button>
+        </div>
+      </div>` : ''}
+    ${role === 'pending' ? `
+      <div class="notice" style="margin-top:16px;">⏳ Your account is pending admin approval. The admin will grant you access soon.</div>
+    ` : ''}
+    <div style="margin-top:16px;">
+      <button class="btn btn-ghost btn-full" onclick="handleSignOut()">🚪 Sign Out</button>
+    </div>
+  `;
+            if (role === 'admin') loadUserManagement();
+            openModal('modalUserMenu');
+        }
+
+        async function loadUserManagement() {
+            const { getDocs, collection } = window.fbFns;
+            const snap = await getDocs(collection(window.fbDB, 'users'));
+            const el = document.getElementById('userMgmtList');
+            if (!el) return;
+            const users = [];
+            snap.forEach(d => users.push({ id: d.id, ...d.data() }));
+            el.innerHTML = users.map(u => `
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);">
+      <div style="flex:1;">
+        <div style="font-size:12px;font-weight:600;">${u.name || u.email}</div>
+        <div style="font-size:10px;color:var(--text2);">${u.email || ''}</div>
+      </div>
+      <select onchange="updateUserRole('${u.id}',this.value)" style="padding:5px;border-radius:7px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text);font-size:11px;">
+        <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
+        <option value="operator" ${u.role === 'operator' ? 'selected' : ''}>Operator</option>
+        <option value="pending" ${u.role === 'pending' ? 'selected' : ''}>Pending</option>
+        <option value="revoked" ${u.role === 'revoked' ? 'selected' : ''}>Revoked</option>
+      </select>
+    </div>
+  `).join('') || '<div style="font-size:12px;color:var(--text3);">No users yet</div>';
+        }
+
+        async function updateUserRole(uid, role) {
+            const { doc, updateDoc } = window.fbFns;
+            await updateDoc(doc(window.fbDB, 'users', uid), { role, approved: role !== 'pending' && role !== 'revoked' });
+            showToast('✅ Role updated');
+            loadUserManagement();
+        }
+
+        async function addApprovedUser() {
+            const email = document.getElementById('newUserEmail').value.trim();
+            const role = document.getElementById('newUserRole').value;
+            if (!email) { showToast('⚠️ Enter an email'); return; }
+            // Store pre-approved email — when they first login, their role will be set
+            const { doc, setDoc, serverTimestamp } = window.fbFns;
+            await setDoc(doc(window.fbDB, 'approvedEmails', email.replace('@', '_at_')), {
+                email, role, approvedAt: serverTimestamp()
+            });
+            showToast(`✅ ${email} pre-approved as ${role}`);
+            document.getElementById('newUserEmail').value = '';
+        }
+
+        window.updateUIForRole();
     </script>
 </body>
 
