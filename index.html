@@ -1817,6 +1817,15 @@ body.role-admin .admin-only-block  { display:block; }
             <div class="admin-only-block">
                 <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-database"/></svg> Bulk Export / Import</div>
                 <p style="font-size:11.5px;color:var(--text2);margin-bottom:12px;line-height:1.6;">Full data export and import is restricted to administrators only.</p>
+                
+                <div class="form-group">
+                    <label>Import Mode</label>
+                    <select id="importMode" style="margin-bottom:10px;">
+                        <option value="merge">Merge — add missing records only</option>
+                        <option value="replace">Replace — overwrite everything with backup</option>
+                    </select>
+                </div>
+                
                 <div class="btn-row" style="margin-bottom:10px;">
                     <button class="btn btn-primary" onclick="exportAllData()"><svg class="icon icon-sm"><use href="#icon-export"/></svg> Export All Data</button>
                     <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()"><svg class="icon icon-sm"><use href="#icon-import"/></svg> Import File</button>
@@ -1829,9 +1838,14 @@ body.role-admin .admin-only-block  { display:block; }
                 <button class="btn btn-ghost btn-full" onclick="importFromText()"><svg class="icon icon-sm"><use href="#icon-import"/></svg> Import from Pasted Text</button>
                 <div class="divider"></div>
                 <button class="btn btn-ghost btn-full btn-sm" onclick="restoreFromBackup()"><svg class="icon icon-sm"><use href="#icon-refresh"/></svg> Restore from Local Backup</button>
+                
+                <div class="admin-only-block" style="margin-top:10px;">
+                    <button class="btn btn-red btn-full btn-sm" onclick="forcePushToCloud()"><svg class="icon icon-sm"><use href="#icon-sync"/></svg> Force Push Local Data to Cloud</button>
+                    <p style="font-size:10.5px;color:var(--text2);margin-top:5px;line-height:1.5;">Overwrites Firebase with your current local data. Use after a full restore.</p>
+                </div>
             </div>
             <div class="edit-only" style="display:none;" id="operatorDataNote">
-                <div class="notice" style="margin-top:10px;"><svg class="icon icon-sm"><use href="#icon-lock"/></svg> Bulk export/import is admin-only. Contact your admin for data transfers.</div>
+                <div class="notice" style="margin-top:10px;"><svg class="icon icon-lock"><use href="#icon-lock"/></svg> Bulk export/import is admin-only. Contact your admin for data transfers.</div>
             </div>
         </div>
 
@@ -2465,8 +2479,8 @@ body.role-admin .admin-only-block  { display:block; }
             // Hero
             document.getElementById('heroProgramName').textContent = db.settings.programName || 'IDEALZ';
             document.getElementById('heroStudCount').textContent = db.students.length;
-            document.getElementById('heroSessionStatus').textContent =
-                currentSession.title ? `<svg class="icon icon-sm"><use href="#icon-report"/></svg> ${currentSession.title}` : 'No Active Session';
+            document.getElementById('heroSessionStatus').innerHTML =
+                currentSession.title ? `<svg class="icon icon-sm"><use href="#icon-play"/></svg> ${currentSession.title}` : 'No Active Session';
 
             // Overall attendance rate
             let totalSessions = db.sessions.length;
@@ -3717,6 +3731,7 @@ body.role-admin .admin-only-block  { display:block; }
 
     <div style="margin-top:14px;" class="btn-row">
       <button class="btn btn-primary" onclick="downloadPDF('${ses.id}')"><svg class="icon icon-sm"><use href="#icon-report"/></svg> Download PDF</button>
+      <button class="btn btn-amber" onclick="generateParentReport('${ses.id}')"><svg class="icon icon-sm"><use href="#icon-users"/></svg> Parent Report</button>
       <button class="btn btn-green" onclick="shareWA('${ses.id}')"><svg class="icon icon-sm"><use href="#icon-phone"/></svg> WhatsApp</button>
       <button class="btn btn-ghost" onclick="copyReport('${ses.id}')"><svg class="icon icon-sm"><use href="#icon-report"/></svg> Copy Text</button>
     </div>
@@ -3737,11 +3752,11 @@ body.role-admin .admin-only-block  { display:block; }
                 const absent = studs.filter(s => (ses.attendance || {})[s.id] === 'A');
                 const late = studs.filter(s => (ses.attendance || {})[s.id] === 'L');
 
-                doc.setFontSize(20); doc.setTextColor(79, 70, 229);
+                doc.setFontSize(20); doc.setTextColor(0, 61, 59);
                 doc.text(`${prog} – Session Report`, 105, 20, { align: 'center' });
                 doc.setFontSize(11); doc.setTextColor(100, 100, 100);
                 doc.text(`${fmtDate(ses.date)} ${ses.num ? '· Session ' + ses.num : ''}`, 105, 28, { align: 'center' });
-                doc.setDrawColor(79, 70, 229); doc.setLineWidth(0.5);
+                doc.setDrawColor(232, 141, 27); doc.setLineWidth(0.5);
                 doc.line(15, 32, 195, 32);
 
                 let y = 40;
@@ -3777,7 +3792,7 @@ body.role-admin .admin-only-block  { display:block; }
                         head: [['#', 'Name', 'Grade']],
                         body: present.map((s, i) => [i + 1, `${s.firstName} ${s.lastName}`, s.grade]),
                         styles: { fontSize: 9, cellPadding: 3 },
-                        headStyles: { fillColor: [79, 70, 229] },
+                        headStyles: { fillColor: [0, 61, 59] },
                         margin: { left: 15, right: 15 }
                     });
                     y = doc.lastAutoTable.finalY + 8;
@@ -3880,23 +3895,36 @@ body.role-admin .admin-only-block  { display:block; }
 
         function importFromFile(input) {
             const file = input.files[0]; if (!file) return;
+            const mode = document.getElementById('importMode')?.value === 'replace';
             const reader = new FileReader();
-            reader.onload = e => { try { processImport(JSON.parse(e.target.result)); } catch (err) { showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Invalid file'); } };
+            reader.onload = e => { try { processImport(JSON.parse(e.target.result), mode); } catch (err) { showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Invalid file'); } };
             reader.readAsText(file);
         }
 
         function importFromText() {
             const txt = document.getElementById('importJson').value.trim();
             if (!txt) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Paste JSON first'); return; }
-            try { processImport(JSON.parse(txt)); } catch (e) { showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Invalid JSON'); }
+            const mode = document.getElementById('importMode')?.value === 'replace';
+            try { processImport(JSON.parse(txt), mode); } catch (e) { showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Invalid JSON'); }
         }
 
-        function processImport(pkg) {
+        function processImport(pkg, replaceMode = false) {
             if (!pkg.type?.includes('idealz')) { showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Not a valid IDEALZ export'); return; }
-            if (pkg.students) pkg.students.forEach(s => { if (!db.students.find(x => x.id === s.id)) db.students.push(s); });
-            if (pkg.volunteers) pkg.volunteers.forEach(v => { if (!db.volunteers.find(x => x.id === v.id)) db.volunteers.push(v); });
-            if (pkg.sessions) pkg.sessions.forEach(s => { if (!db.sessions.find(x => x.id === s.id)) db.sessions.push(s); });
-            if (pkg.settings) Object.assign(db.settings, pkg.settings);
+
+            if (replaceMode) {
+                // Full replace — wipe current data first
+                if (pkg.students)   db.students   = pkg.students;
+                if (pkg.volunteers) db.volunteers = pkg.volunteers;
+                if (pkg.sessions)   db.sessions   = pkg.sessions;
+                if (pkg.settings)   Object.assign(db.settings, pkg.settings);
+            } else {
+                // Merge — skip duplicates
+                if (pkg.students)   pkg.students.forEach(s   => { if (!db.students.find(x => x.id === s.id))   db.students.push(s); });
+                if (pkg.volunteers) pkg.volunteers.forEach(v => { if (!db.volunteers.find(x => x.id === v.id)) db.volunteers.push(v); });
+                if (pkg.sessions)   pkg.sessions.forEach(s   => { if (!db.sessions.find(x => x.id === s.id))   db.sessions.push(s); });
+                if (pkg.settings)   Object.assign(db.settings, pkg.settings);
+            }
+
             saveDB();
             if (window.fbDB && canSyncToFirebase()) {
                 (async () => {
@@ -3908,32 +3936,179 @@ body.role-admin .admin-only-block  { display:block; }
                     } catch (err) { console.error('Firebase sync after import:', err); }
                 })();
             }
+            refreshHome(); renderStudentList(); renderVolunteerList(); renderHistory();
             closeModal('modalSync');
             goTab('home');
-            showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Data imported!');
+            showToast(replaceMode ? 'Full restore complete!' : 'Data imported (merged)!');
         }
 
         function openSyncExport() { openModal('modalSync'); }
 
-        function confirmClearHistory() {
-            if (confirm('Clear all session history? Students and volunteers will be kept.')) {
-                const ids = db.sessions.map(s => s.id);
-                db.sessions = [];
-                saveDB();
-                ids.forEach(id => deleteSessionFromFirebase(id));
-                renderHistory();
-                showToast('<svg class="icon icon-sm"><use href="#icon-trash"/></svg> History cleared');
+        async function forcePushToCloud() {
+            if (!confirm('This will overwrite ALL Firebase data with your current local data. Are you sure?')) return;
+            if (!canSyncToFirebase()) { showToast('Admin access required'); return; }
+
+            showToast('Pushing to cloud...');
+            try {
+                const { getDocs, collection, deleteDoc, doc, setDoc } = window.fbFns;
+                const fdb = window.fbDB;
+
+                // Wipe Firebase first
+                for (const col of ['students','volunteers','sessions']) {
+                    const snap = await getDocs(collection(fdb, col));
+                    for (const d of snap.docs) await deleteDoc(doc(fdb, col, d.id));
+                }
+
+                // Push local data up
+                for (const s   of db.students)   await setDoc(doc(fdb, 'students',   s.id),   s);
+                for (const v   of db.volunteers) await setDoc(doc(fdb, 'volunteers', v.id),   v);
+                for (const ses of db.sessions)   await setDoc(doc(fdb, 'sessions',   ses.id), ses);
+                await setDoc(doc(fdb, 'settings', 'main'), db.settings);
+
+                showToast('Cloud updated with local data!');
+            } catch(e) {
+                console.error(e);
+                showToast('Push failed: ' + e.message);
             }
         }
 
-        function confirmClearAll() {
-            if (!confirm('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Delete ALL data including students, volunteers, and history? This cannot be undone!')) return;
-            if (!confirm('Are you absolutely sure?')) return;
+        function generateParentReport(sesId) {
+            const ses = db.sessions.find(x => x.id === sesId) || window._lastReportSession;
+            if (!ses) return;
+            const grades = ses.grades || 'all';
+            const studs = getStudentsForSession(grades);
+            const prog = db.settings.programName || 'IDEALZ';
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Header
+                doc.setFontSize(20); doc.setTextColor(0, 61, 59);
+                doc.text(`${prog}`, 105, 18, { align: 'center' });
+                doc.setFontSize(12); doc.setTextColor(100, 100, 100);
+                doc.text('Parent / Guardian Report', 105, 26, { align: 'center' });
+                doc.setFontSize(10);
+                doc.text(`Session: ${ses.title || '—'}   |   Date: ${fmtDate(ses.date)}`, 105, 33, { align: 'center' });
+                doc.setDrawColor(232, 141, 27); doc.setLineWidth(0.8);
+                doc.line(15, 37, 195, 37);
+
+                let y = 46;
+
+                // For each student in this session — one section per student
+                studs.forEach(stu => {
+                    const attStatus = (ses.attendance || {})[stu.id] || 'Not Recorded';
+                    const attLabel = attStatus === 'P' ? 'Present' : attStatus === 'A' ? 'Absent' : attStatus === 'L' ? 'Late' : 'Not Recorded';
+                    const attColor = attStatus === 'P' ? [22, 101, 52] : attStatus === 'A' ? [153, 27, 27] : [146, 64, 14];
+
+                    // Student name block
+                    doc.setFillColor(245, 242, 237);
+                    doc.roundedRect(14, y - 4, 182, 10, 2, 2, 'F');
+                    doc.setFontSize(11); doc.setTextColor(0, 61, 59);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(`${stu.firstName} ${stu.lastName}  |  Grade ${stu.grade}`, 18, y + 3);
+                    doc.setFont(undefined, 'normal');
+
+                    // Attendance status
+                    doc.setTextColor(...attColor);
+                    doc.text(attLabel, 175, y + 3, { align: 'right' });
+                    y += 14;
+
+                    // Points (no admin details shown)
+                    doc.setFontSize(9.5); doc.setTextColor(80, 80, 80);
+                    doc.text(`Points Balance: ${stu.points || 0} pts`, 18, y);
+                    y += 6;
+
+                    // Positive notes only (filter bad/complaint notes out of parent view)
+                    const goodNotes = (stu.notes || []).filter(n => n.type === 'good' && n.date === ses.date);
+                    if (goodNotes.length > 0) {
+                        goodNotes.forEach(n => {
+                            doc.setTextColor(22, 101, 52);
+                            const lines = doc.splitTextToSize(`• ${n.text}`, 170);
+                            doc.text(lines, 18, y); y += lines.length * 5;
+                        });
+                    }
+
+                    y += 5;
+                    if (y > 255) { doc.addPage(); y = 20; }
+                });
+
+                // Footer
+                doc.setFontSize(9); doc.setTextColor(150, 150, 150);
+                doc.text(`${prog} · ${db.settings.orgName || ''} · ${db.settings.location || ''}`, 105, 285, { align: 'center' });
+                if (db.settings.coordinatorContact) {
+                    doc.text(`Contact: ${db.settings.coordinatorContact}`, 105, 290, { align: 'center' });
+                }
+
+                doc.save(`${prog}_ParentReport_${ses.date}.pdf`);
+                showToast('Parent report downloaded!');
+            } catch(e) {
+                console.error(e);
+                showToast('PDF error. Check console.');
+            }
+        }
+
+        async function confirmClearHistory() {
+            if (!confirm('Clear all session history? Students and volunteers will be kept.')) return;
+            const ids = db.sessions.map(s => s.id);
+            db.sessions = [];
+            saveDB();
+            if (canSyncToFirebase()) {
+                const { doc, deleteDoc } = window.fbFns;
+                for (const id of ids) {
+                    try { await deleteDoc(doc(window.fbDB, 'sessions', id)); } catch(e) {}
+                }
+            }
+            renderHistory();
+            refreshHome();
+            showToast('History cleared from cloud & local');
+        }
+
+        async function confirmClearAll() {
+            if (!confirm('⚠️ Delete ALL data including students, volunteers, and history? This CANNOT be undone!')) return;
+            if (!confirm('Are you absolutely sure? This deletes from Firebase too.')) return;
+
+            showToast('Clearing all data...');
+
+            // Clear local
             db = { students: [], volunteers: [], sessions: [], settings: { programName: 'IDEALZ', orgName: '', coordinatorContact: '', waGroup: '', location: '' } };
             currentSession = {}; todayAtt = {}; todayVolAtt = {};
             [DB_KEY, SES_KEY, ATT_KEY, VATT_KEY].forEach(k => localStorage.removeItem(k));
-            goTab('home');
-            showToast('<svg class="icon icon-sm"><use href="#icon-trash"/></svg> All data cleared');
+
+            // Clear Firebase too
+            if (canSyncToFirebase()) {
+                try {
+                    const { getDocs, collection, deleteDoc, doc, setDoc } = window.fbFns;
+                    const fdb = window.fbDB;
+
+                    // Delete all students
+                    const sSnap = await getDocs(collection(fdb, 'students'));
+                    for (const d of sSnap.docs) await deleteDoc(doc(fdb, 'students', d.id));
+
+                    // Delete all volunteers
+                    const vSnap = await getDocs(collection(fdb, 'volunteers'));
+                    for (const d of vSnap.docs) await deleteDoc(doc(fdb, 'volunteers', d.id));
+
+                    // Delete all sessions
+                    const sesSnap = await getDocs(collection(fdb, 'sessions'));
+                    for (const d of sesSnap.docs) await deleteDoc(doc(fdb, 'sessions', d.id));
+
+                    // Reset settings in Firebase
+                    await setDoc(doc(fdb, 'settings', 'main'), db.settings);
+
+                    showToast('All data cleared from cloud & local');
+                } catch(e) {
+                    console.error('Firebase clear error:', e);
+                    showToast('Local cleared. Firebase clear failed — check console.');
+                }
+            } else {
+                showToast('All local data cleared');
+            }
+
+            refreshHome();
+            renderStudentList();
+            renderVolunteerList();
+            renderHistory();
         }
 
         // ══════════════════════════════════════════════════
@@ -4025,7 +4200,7 @@ body.role-admin .admin-only-block  { display:block; }
             const label = document.getElementById('authLabel');
             const avatar = document.getElementById('authAvatar');
             if (user) {
-                label.textContent = role==='admin' ? '<svg class="icon icon-sm"><use href="#icon-crown"/></svg> ADMIN' : role==='operator' ? '<svg class="icon icon-sm"><use href="#icon-settings"/></svg> OPS' : '⏳ PENDING';
+                label.innerHTML = role==='admin' ? '<svg class="icon icon-sm"><use href="#icon-crown"/></svg> ADMIN' : role==='operator' ? '<svg class="icon icon-sm"><use href="#icon-settings"/></svg> OPS' : '⏳ PENDING';
                 if (user.photoURL) { avatar.src=user.photoURL; avatar.style.display='block'; }
             } else {
                 label.textContent = 'SIGN IN';
