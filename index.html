@@ -1352,7 +1352,7 @@ body.role-admin .admin-only-block  { display:block; }
         <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-lightning"/></svg> Smart Insights</div>
         <div id="homeInsights">
             <div class="insight-card">
-                <div class="insight-hd"><span class="insight-icon">📌</span><span class="insight-title">Getting
+                <div class="insight-hd"><span class="insight-icon"><svg class="icon icon-sm"><use href="#icon-pin"/></svg></span><span class="insight-title">Getting
                         Started</span></div>
                 <div class="insight-body">Add students and volunteers, then start your first session to see intelligent
                     insights here.</div>
@@ -1452,20 +1452,20 @@ body.role-admin .admin-only-block  { display:block; }
                     <label>Weather / Conditions</label>
                     <select id="sesWeather">
                         <option value="">— Select —</option>
-                        <option>☀️ Sunny</option>
-                        <option>🌧️ Rainy</option>
-                        <option>⛅ Cloudy</option>
-                        <option>🌩️ Stormy</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-sun"/></svg> Sunny</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-info"/></svg> Rainy</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-sun"/></svg> Cloudy</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-alert"/></svg> Stormy</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Overall Mood</label>
                     <select id="sesMood">
                         <option value="">— Select —</option>
-                        <option>🔥 Excellent</option>
-                        <option>😊 Good</option>
-                        <option>😐 Average</option>
-                        <option>😞 Below Average</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-award"/></svg> Excellent</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-heart"/></svg> Good</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-info"/></svg> Average</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-alert"/></svg> Below Average</option>
                     </select>
                 </div>
             </div>
@@ -1477,7 +1477,7 @@ body.role-admin .admin-only-block  { display:block; }
                 <label>Internal Notes (not in parent report)</label>
                 <textarea id="sesNotes" placeholder="Internal observations, issues, follow-ups..."></textarea>
             </div>
-            <button class="btn btn-primary btn-full" onclick="saveSessionInfo()">💾 Save Session Info</button>
+            <button class="btn btn-primary btn-full" onclick="saveSessionInfo()"><svg class="icon icon-sm"><use href="#icon-save"/></svg> Save Session Info</button>
         </div>
 
         <!-- STUDENT ATTENDANCE -->
@@ -1502,7 +1502,7 @@ body.role-admin .admin-only-block  { display:block; }
                 </div>
             </div>
             <div class="att-search">
-                <span class="si">🔍</span>
+                <span class="si"><svg class="icon icon-sm"><use href="#icon-search"/></svg></span>
                 <input type="text" placeholder="Search students..." oninput="filterAttList('studs', this.value)">
             </div>
             <div class="btn-row" style="margin-bottom:10px;">
@@ -1530,7 +1530,7 @@ body.role-admin .admin-only-block  { display:block; }
                 </div>
             </div>
             <div class="att-search">
-                <span class="si">🔍</span>
+                <span class="si"><svg class="icon icon-sm"><use href="#icon-search"/></svg></span>
                 <input type="text" placeholder="Search volunteers..." oninput="filterAttList('vols', this.value)">
             </div>
             <div class="att-list" id="volAttList"></div>
@@ -1559,7 +1559,7 @@ body.role-admin .admin-only-block  { display:block; }
         <!-- LIST TAB -->
         <div id="studsTabList">
             <div class="att-search">
-                <span class="si">🔍</span>
+                <span class="si"><svg class="icon icon-sm"><use href="#icon-search"/></svg></span>
                 <input type="text" placeholder="Search by name, grade, ID..." oninput="renderStudentList(this.value)">
             </div>
             <div class="grade-chips" id="studGradeFilter">
@@ -1585,22 +1585,22 @@ body.role-admin .admin-only-block  { display:block; }
         <div id="studsTabStats" style="display:none">
             <div class="kpi-grid" id="studKpiGrid">
                 <div class="kpi">
-                    <div class="kpi-icon">👥</div>
+                    <div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-users"/></svg></div>
                     <div class="kpi-val" id="skTotal">0</div>
                     <div class="kpi-label">Total Students</div>
                 </div>
                 <div class="kpi green">
-                    <div class="kpi-icon">⭐</div>
+                    <div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-star"/></svg></div>
                     <div class="kpi-val" id="skAvgPts">0</div>
                     <div class="kpi-label">Avg Points</div>
                 </div>
                 <div class="kpi purple">
-                    <div class="kpi-icon">📊</div>
+                    <div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-chart-bar"/></svg></div>
                     <div class="kpi-val" id="skAvgAtt">0%</div>
                     <div class="kpi-label">Avg Attendance</div>
                 </div>
                 <div class="kpi amber">
-                    <div class="kpi-icon">⚠️</div>
+                    <div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-alert"/></svg></div>
                     <div class="kpi-val" id="skAtRisk">0</div>
                     <div class="kpi-label">At Risk (&lt;70%)</div>
                 </div>
@@ -1689,7 +1689,7 @@ body.role-admin .admin-only-block  { display:block; }
         <!-- LIST TAB -->
         <div id="volsTabList">
             <div class="att-search">
-                <span class="si">🔍</span>
+                <span class="si"><svg class="icon icon-sm"><use href="#icon-search"/></svg></span>
                 <input type="text" placeholder="Search volunteers..." oninput="renderVolunteerList(this.value)">
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
@@ -1702,19 +1702,19 @@ body.role-admin .admin-only-block  { display:block; }
         <div id="volsTabStats" style="display:none">
             <div class="kpi-grid">
                 <div class="kpi">
-                    <div class="kpi-icon">🙌</div>
+                    <div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-heart"/></svg></div>
                     <div class="kpi-val" id="vkTotal">0</div>
                     <div class="kpi-label">Total Volunteers</div>
                 </div>
                 <div class="kpi green">
-                    <div class="kpi-icon">📊</div>
+                    <div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-chart-bar"/></svg></div>
                     <div class="kpi-val" id="vkAvgAtt">0%</div>
                     <div class="kpi-label">Avg Attendance</div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-hd">
-                    <div class="card-title">🏅 Volunteer Recognition</div>
+                    <div class="card-title"><svg class="icon icon-sm"><use href="#icon-trophy"/></svg> Volunteer Recognition</div>
                 </div>
                 <div id="volLeaderboard"></div>
             </div>
@@ -1769,7 +1769,7 @@ body.role-admin .admin-only-block  { display:block; }
             </div>
         </div>
         <div class="att-search">
-            <span class="si">🔍</span>
+            <span class="si"><svg class="icon icon-sm"><use href="#icon-search"/></svg></span>
             <input type="text" placeholder="Search sessions..." oninput="renderHistory(this.value)">
         </div>
         <div id="historyList"></div>
@@ -1789,7 +1789,7 @@ body.role-admin .admin-only-block  { display:block; }
 ════════════════════════════════════════════ -->
     <div class="page" id="page-settings">
         <div class="card">
-            <div class="card-title" style="margin-bottom:14px;">🏫 Program Settings</div>
+            <div class="card-title" style="margin-bottom:14px;"><svg class="icon icon-md"><use href="#icon-building"/></svg> Program Settings</div>
             <div class="form-group"><label>Program Name</label><input type="text" id="setProg" placeholder="IDEALZ"
                     onchange="saveSetting('programName',this.value)"></div>
             <div class="form-group"><label>Organisation Name</label><input type="text" id="setOrg"
@@ -1803,40 +1803,40 @@ body.role-admin .admin-only-block  { display:block; }
         </div>
 
         <div class="card">
-            <div class="card-title" style="margin-bottom:14px;">🔄 Data & Backup</div>
+            <div class="card-title" style="margin-bottom:14px;"><svg class="icon icon-md"><use href="#icon-sync"/></svg> Data & Backup</div>
             
             <div class="backup-status" id="localBackupStatus">
                 <span class="backup-dot"></span>
                 <span>Auto-backup: <span id="lastBackupTime">Calculating...</span></span>
             </div>
             <div style="height:12px;"></div>
-            <button class="btn btn-ghost btn-full btn-sm" onclick="triggerLocalBackup()">💾 Save Local Backup Now</button>
+            <button class="btn btn-ghost btn-full btn-sm" onclick="triggerLocalBackup()"><svg class="icon icon-sm"><use href="#icon-save"/></svg> Save Local Backup Now</button>
 
             <div class="divider"></div>
 
             <div class="admin-only-block">
-                <div class="sec-hd">📦 Bulk Export / Import</div>
+                <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-database"/></svg> Bulk Export / Import</div>
                 <p style="font-size:11.5px;color:var(--text2);margin-bottom:12px;line-height:1.6;">Full data export and import is restricted to administrators only.</p>
                 <div class="btn-row" style="margin-bottom:10px;">
-                    <button class="btn btn-primary" onclick="exportAllData()">📤 Export All Data</button>
-                    <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">📥 Import File</button>
+                    <button class="btn btn-primary" onclick="exportAllData()"><svg class="icon icon-sm"><use href="#icon-export"/></svg> Export All Data</button>
+                    <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()"><svg class="icon icon-sm"><use href="#icon-import"/></svg> Import File</button>
                 </div>
                 <input type="file" id="importFile" accept=".json" style="display:none" onchange="importFromFile(this)">
                 <div class="form-group">
                     <label>Paste JSON to Import</label>
                     <textarea id="importJson" style="min-height:70px;font-family:monospace;font-size:11px;" placeholder="Paste exported JSON here..."></textarea>
                 </div>
-                <button class="btn btn-ghost btn-full" onclick="importFromText()">📥 Import from Pasted Text</button>
+                <button class="btn btn-ghost btn-full" onclick="importFromText()"><svg class="icon icon-sm"><use href="#icon-import"/></svg> Import from Pasted Text</button>
                 <div class="divider"></div>
-                <button class="btn btn-ghost btn-full btn-sm" onclick="restoreFromBackup()">🔁 Restore from Local Backup</button>
+                <button class="btn btn-ghost btn-full btn-sm" onclick="restoreFromBackup()"><svg class="icon icon-sm"><use href="#icon-refresh"/></svg> Restore from Local Backup</button>
             </div>
             <div class="edit-only" style="display:none;" id="operatorDataNote">
-                <div class="notice" style="margin-top:10px;">🔒 Bulk export/import is admin-only. Contact your admin for data transfers.</div>
+                <div class="notice" style="margin-top:10px;"><svg class="icon icon-sm"><use href="#icon-lock"/></svg> Bulk export/import is admin-only. Contact your admin for data transfers.</div>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-title" style="margin-bottom:14px;">🎨 Appearance</div>
+            <div class="card-title" style="margin-bottom:14px;"><svg class="icon icon-sm"><use href="#icon-palette"/></svg> Appearance</div>
             <div class="setting-row">
                 <div>
                     <div class="setting-lbl">Dark Mode</div>
@@ -1849,15 +1849,15 @@ body.role-admin .admin-only-block  { display:block; }
         </div>
 
         <div class="card">
-            <div class="card-title" style="margin-bottom:14px;">⚠️ Danger Zone</div>
+            <div class="card-title" style="margin-bottom:14px;"><svg class="icon icon-md"><use href="#icon-alert-triangle"/></svg> Danger Zone</div>
             <div class="btn-row">
-                <button class="btn btn-amber btn-sm" onclick="confirmClearHistory()">🗑️ Clear History</button>
-                <button class="btn btn-red btn-sm" onclick="confirmClearAll()">💥 Reset Everything</button>
+                <button class="btn btn-amber btn-sm" onclick="confirmClearHistory()"><svg class="icon icon-sm"><use href="#icon-trash"/></svg> Clear History</button>
+                <button class="btn btn-red btn-sm" onclick="confirmClearAll()"><svg class="icon icon-sm"><use href="#icon-alert"/></svg> Reset Everything</button>
             </div>
         </div>
 
         <div style="text-align:center;color:var(--text3);font-size:11px;padding:12px;">
-            IDEALZ Management System v2.0 · Built with ❤️ for Youth
+            IDEALZ Management System v2.0 · Built with <svg class="icon icon-sm"><use href="#icon-heart"/></svg>️ for Youth
         </div>
     </div>
 
@@ -1966,7 +1966,7 @@ body.role-admin .admin-only-block  { display:block; }
     <div class="modal-backdrop" id="modalPoints">
         <div class="modal-sheet">
             <div class="modal-handle"></div>
-            <div class="modal-title">⭐ Award / Deduct Points</div>
+            <div class="modal-title"><svg class="icon icon-sm"><use href="#icon-star"/></svg> Award / Deduct Points</div>
             <input type="hidden" id="ptsMemberId">
             <input type="hidden" id="ptsMemberType">
             <div class="form-group">
@@ -1978,14 +1978,14 @@ body.role-admin .admin-only-block  { display:block; }
                         placeholder="e.g. 10 or -5"></div>
                 <div class="form-group"><label>Category</label>
                     <select id="ptsCat">
-                        <option>🏅 Achievement</option>
-                        <option>💡 Good Behavior</option>
-                        <option>📚 Learning</option>
-                        <option>🤝 Teamwork</option>
-                        <option>🏆 Competition</option>
-                        <option>⚠️ Misconduct</option>
-                        <option>📉 Absence Penalty</option>
-                        <option>⭐ Special Award</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-trophy"/></svg> Achievement</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-lightning"/></svg> Good Behavior</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-note"/></svg> Learning</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-users"/></svg> Teamwork</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-trophy"/></svg> Competition</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-alert"/></svg> Misconduct</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-trend-down"/></svg> Absence Penalty</option>
+                        <option><svg class="icon icon-sm"><use href="#icon-star"/></svg> Special Award</option>
                         <option>Other</option>
                     </select>
                 </div>
@@ -1993,7 +1993,7 @@ body.role-admin .admin-only-block  { display:block; }
             <div class="form-group"><label>Reason / Description</label><textarea id="ptsReason"
                     placeholder="What did they do?"></textarea></div>
             <div class="btn-row">
-                <button class="btn btn-primary btn-full" onclick="submitPoints()">✅ Submit</button>
+                <button class="btn btn-primary btn-full" onclick="submitPoints()"><svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Submit</button>
                 <button class="btn btn-ghost" onclick="closeModal('modalPoints')">Cancel</button>
             </div>
         </div>
@@ -2003,21 +2003,21 @@ body.role-admin .admin-only-block  { display:block; }
     <div class="modal-backdrop" id="modalNote">
         <div class="modal-sheet">
             <div class="modal-handle"></div>
-            <div class="modal-title">📝 Add Note / Observation</div>
+            <div class="modal-title"><svg class="icon icon-sm"><use href="#icon-note"/></svg> Add Note / Observation</div>
             <input type="hidden" id="noteMemberId">
             <input type="hidden" id="noteMemberType">
             <div class="form-group"><label>Type</label>
                 <select id="noteType">
-                    <option value="good">✅ Positive / Achievement</option>
-                    <option value="neutral">📌 General Observation</option>
-                    <option value="bad">⚠️ Concern / Misconduct</option>
-                    <option value="complaint">🚨 Complaint / Incident</option>
+                    <option value="good"><svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Positive / Achievement</option>
+                    <option value="neutral"><svg class="icon icon-sm"><use href="#icon-pin"/></svg> General Observation</option>
+                    <option value="bad"><svg class="icon icon-sm"><use href="#icon-alert"/></svg> Concern / Misconduct</option>
+                    <option value="complaint"><svg class="icon icon-sm"><use href="#icon-alert"/></svg> Complaint / Incident</option>
                 </select>
             </div>
             <div class="form-group"><label>Note</label><textarea id="noteText"
                     placeholder="Describe the observation, incident, or achievement..."></textarea></div>
             <div class="btn-row">
-                <button class="btn btn-primary btn-full" onclick="submitNote()">💾 Save Note</button>
+                <button class="btn btn-primary btn-full" onclick="submitNote()"><svg class="icon icon-sm"><use href="#icon-save"/></svg> Save Note</button>
                 <button class="btn btn-ghost" onclick="closeModal('modalNote')">Cancel</button>
             </div>
         </div>
@@ -2027,7 +2027,7 @@ body.role-admin .admin-only-block  { display:block; }
     <div class="modal-backdrop" id="modalPastSession">
         <div class="modal-sheet" style="max-height:95vh;">
             <div class="modal-handle"></div>
-            <div class="modal-title">📅 Add Past Session</div>
+            <div class="modal-title"><svg class="icon icon-sm"><use href="#icon-calendar"/></svg> Add Past Session</div>
             <div class="modal-subtitle">Record a session that already happened</div>
             <div class="form-row">
                 <div class="form-group"><label>Date *</label><input type="date" id="psDate"></div>
@@ -2069,7 +2069,7 @@ body.role-admin .admin-only-block  { display:block; }
             <div class="att-list" id="psVolList"></div>
             <div style="height:16px;"></div>
             <div class="btn-row">
-                <button class="btn btn-primary btn-full" onclick="savePastSession()">💾 Save Past Session</button>
+                <button class="btn btn-primary btn-full" onclick="savePastSession()"><svg class="icon icon-sm"><use href="#icon-save"/></svg> Save Past Session</button>
                 <button class="btn btn-ghost" onclick="closeModal('modalPastSession')">Cancel</button>
             </div>
         </div>
@@ -2079,19 +2079,19 @@ body.role-admin .admin-only-block  { display:block; }
     <div class="modal-backdrop" id="modalSync">
         <div class="modal-sheet">
             <div class="modal-handle"></div>
-            <div class="modal-title">🔄 Sync & Share Data</div>
+            <div class="modal-title"><svg class="icon icon-sm"><use href="#icon-refresh"/></svg> Sync & Share Data</div>
             <p style="font-size:12px;color:var(--text2);margin-bottom:16px;">To use this app on multiple devices, export
                 your data and import it on the other device.</p>
             <div class="btn-row admin-only-block" style="margin-bottom:16px;">
-                <button class="btn btn-primary btn-full" onclick="exportAllData()">📤 Export All Data (JSON)</button>
+                <button class="btn btn-primary btn-full" onclick="exportAllData()"><svg class="icon icon-sm"><use href="#icon-export"/></svg> Export All Data (JSON)</button>
             </div>
             <div class="admin-only-block">
                 <div class="form-group"><label>Import from File</label>
-                    <button class="btn btn-ghost btn-full" onclick="document.getElementById('syncImportFile').click()">📥 Choose JSON File</button>
+                    <button class="btn btn-ghost btn-full" onclick="document.getElementById('syncImportFile').click()"><svg class="icon icon-sm"><use href="#icon-import"/></svg> Choose JSON File</button>
                     <input type="file" id="syncImportFile" accept=".json" style="display:none" onchange="importFromFile(this)">
                 </div>
             </div>
-            <div class="notice edit-only" id="syncNoticeOperator" style="display:none;">🔒 Export & import is admin-only. You can view and sync data but cannot bulk export or import.</div>
+            <div class="notice edit-only" id="syncNoticeOperator" style="display:none;"><svg class="icon icon-sm"><use href="#icon-lock"/></svg> Export & import is admin-only. You can view and sync data but cannot bulk export or import.</div>
             <button class="btn btn-ghost btn-full" onclick="closeModal('modalSync')">Close</button>
         </div>
     </div>
@@ -2100,7 +2100,7 @@ body.role-admin .admin-only-block  { display:block; }
     <div class="modal-backdrop" id="modalUserMenu">
         <div class="modal-sheet">
             <div class="modal-handle"></div>
-            <div class="modal-title">👤 My Account</div>
+            <div class="modal-title"><svg class="icon icon-sm"><use href="#icon-user"/></svg> My Account</div>
             <div id="userMenuContent"></div>
         </div>
     </div>
@@ -2158,8 +2158,8 @@ body.role-admin .admin-only-block  { display:block; }
                 localStorage.setItem(BACKUP_KEY, snapshot);
                 localStorage.setItem(BACKUP_TS_KEY, new Date().toISOString());
                 updateBackupStatus();
-                showToast('💾 Local backup saved!');
-            } catch(e) { showToast('⚠️ Backup failed: ' + e.message); }
+                showToast('<svg class="icon icon-sm"><use href="#icon-save"/></svg> Local backup saved!');
+            } catch(e) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Backup failed: ' + e.message); }
         }
 
         function updateBackupStatus() {
@@ -2176,14 +2176,14 @@ body.role-admin .admin-only-block  { display:block; }
 
         function restoreFromBackup() {
             const snap = localStorage.getItem(BACKUP_KEY);
-            if (!snap) { showToast('⚠️ No backup found'); return; }
+            if (!snap) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> No backup found'); return; }
             if (!confirm('Restore from last local backup? Current data will be overwritten.')) return;
             try {
                 db = JSON.parse(snap);
                 saveDB();
                 refreshHome(); renderStudentList(); renderVolunteerList(); renderHistory();
-                showToast('✅ Restored from local backup!');
-            } catch(e) { showToast('❌ Restore failed'); }
+                showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Restored from local backup!');
+            } catch(e) { showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Restore failed'); }
         }
 
         function updateDataSectionForRole() {
@@ -2269,7 +2269,7 @@ body.role-admin .admin-only-block  { display:block; }
                 renderStudentList();
                 renderVolunteerList();
                 renderHistory();
-                showToast('🔄 Data synced from cloud');
+                showToast('<svg class="icon icon-sm"><use href="#icon-refresh"/></svg> Data synced from cloud');
             } catch (e) {
                 console.error('Firebase load error:', e);
                 loadDB(); // Fallback to local
@@ -2321,7 +2321,7 @@ body.role-admin .admin-only-block  { display:block; }
         function canEdit() {
             const role = window.currentRole;
             if (role === 'admin' || role === 'operator') return true;
-            showToast('🔒 You need operator access to edit');
+            showToast('<svg class="icon icon-sm"><use href="#icon-lock"/></svg> You need operator access to edit');
             return false;
         }
 
@@ -2402,11 +2402,11 @@ body.role-admin .admin-only-block  { display:block; }
         //  POINTS / TIER SYSTEM
         // ══════════════════════════════════════════════════
         function getTier(pts) {
-            if (pts >= 500) return { name: '💎 Diamond', cls: 'tier-diamond', next: null };
-            if (pts >= 200) return { name: '💠 Platinum', cls: 'tier-platinum', next: 500 };
-            if (pts >= 100) return { name: '🥇 Gold', cls: 'tier-gold', next: 200 };
-            if (pts >= 50) return { name: '🥈 Silver', cls: 'tier-silver', next: 100 };
-            return { name: '🥉 Bronze', cls: 'tier-bronze', next: 50 };
+            if (pts >= 500) return { name: '<svg class="icon icon-sm"><use href="#icon-crown"/></svg> Diamond', cls: 'tier-diamond', next: null };
+            if (pts >= 200) return { name: '<svg class="icon icon-sm"><use href="#icon-crown"/></svg> Platinum', cls: 'tier-platinum', next: 500 };
+            if (pts >= 100) return { name: '<svg class="icon icon-sm"><use href="#icon-trophy"/></svg> Gold', cls: 'tier-gold', next: 200 };
+            if (pts >= 50) return { name: '<svg class="icon icon-sm"><use href="#icon-award"/></svg> Silver', cls: 'tier-silver', next: 100 };
+            return { name: '<svg class="icon icon-sm"><use href="#icon-award"/></svg> Bronze', cls: 'tier-bronze', next: 50 };
         }
 
         function addPoints(memberId, memberType, amount, reason, category) {
@@ -2466,7 +2466,7 @@ body.role-admin .admin-only-block  { display:block; }
             document.getElementById('heroProgramName').textContent = db.settings.programName || 'IDEALZ';
             document.getElementById('heroStudCount').textContent = db.students.length;
             document.getElementById('heroSessionStatus').textContent =
-                currentSession.title ? `📋 ${currentSession.title}` : 'No Active Session';
+                currentSession.title ? `<svg class="icon icon-sm"><use href="#icon-report"/></svg> ${currentSession.title}` : 'No Active Session';
 
             // Overall attendance rate
             let totalSessions = db.sessions.length;
@@ -2572,13 +2572,13 @@ body.role-admin .admin-only-block  { display:block; }
             const avgAtt = allRates.length > 0 ? Math.round(allRates.reduce((a, b) => a + b, 0) / allRates.length) : 0;
 
             if (totalSessions === 0) {
-                insights.push({ type: '', icon: '📌', title: 'Getting Started', body: 'Add students and volunteers, then start your first session to see intelligent insights here.' });
+                insights.push({ type: '', icon: '<svg class="icon icon-sm"><use href="#icon-pin"/></svg>', title: 'Getting Started', body: 'Add students and volunteers, then start your first session to see intelligent insights here.' });
             } else {
-                if (avgAtt >= 85) insights.push({ type: 'success', icon: '🎉', title: 'Excellent Attendance!', body: `Your program maintains a ${avgAtt}% average attendance rate. Keep up the great momentum!` });
-                else if (avgAtt < 60) insights.push({ type: 'danger', icon: '🚨', title: 'Attendance Needs Attention', body: `Average attendance is only ${avgAtt}%. Consider reaching out to parents and reviewing program format.` });
+                if (avgAtt >= 85) insights.push({ type: 'success', icon: '<svg class="icon icon-sm"><use href="#icon-award"/></svg>', title: 'Excellent Attendance!', body: `Your program maintains a ${avgAtt}% average attendance rate. Keep up the great momentum!` });
+                else if (avgAtt < 60) insights.push({ type: 'danger', icon: '<svg class="icon icon-sm"><use href="#icon-alert"/></svg>', title: 'Attendance Needs Attention', body: `Average attendance is only ${avgAtt}%. Consider reaching out to parents and reviewing program format.` });
 
                 if (atRisk.length > 0) {
-                    insights.push({ type: 'warning', icon: '⚠️', title: `${atRisk.length} Students At Risk`, body: `${atRisk.slice(0, 3).map(s => s.firstName).join(', ')}${atRisk.length > 3 ? ` and ${atRisk.length - 3} more` : ''} have attendance below 70%. Consider personal follow-up.` });
+                    insights.push({ type: 'warning', icon: '<svg class="icon icon-sm"><use href="#icon-alert"/></svg>', title: `${atRisk.length} Students At Risk`, body: `${atRisk.slice(0, 3).map(s => s.firstName).join(', ')}${atRisk.length > 3 ? ` and ${atRisk.length - 3} more` : ''} have attendance below 70%. Consider personal follow-up.` });
                 }
 
                 if (totalSessions >= 3) {
@@ -2588,12 +2588,12 @@ body.role-admin .admin-only-block  { display:block; }
                         return total > 0 ? pres / total : 0;
                     });
                     const trend = last3[2] - last3[0];
-                    if (trend > 0.1) insights.push({ type: 'success', icon: '📈', title: 'Attendance Trending Up!', body: `Last 3 sessions show improving attendance. Your program engagement is growing.` });
-                    else if (trend < -0.1) insights.push({ type: 'warning', icon: '📉', title: 'Declining Attendance Trend', body: `Last 3 sessions show declining attendance. Review session content and engagement strategies.` });
+                    if (trend > 0.1) insights.push({ type: 'success', icon: '<svg class="icon icon-sm"><use href="#icon-trend-up"/></svg>', title: 'Attendance Trending Up!', body: `Last 3 sessions show improving attendance. Your program engagement is growing.` });
+                    else if (trend < -0.1) insights.push({ type: 'warning', icon: '<svg class="icon icon-sm"><use href="#icon-trend-down"/></svg>', title: 'Declining Attendance Trend', body: `Last 3 sessions show declining attendance. Review session content and engagement strategies.` });
                 }
 
                 if (sorted.length > 0 && sorted[0].points >= 100) {
-                    insights.push({ type: 'success', icon: '🏆', title: 'Star Performer', body: `${sorted[0].firstName} ${sorted[0].lastName} leads with ${sorted[0].points} points. Consider public recognition!` });
+                    insights.push({ type: 'success', icon: '<svg class="icon icon-sm"><use href="#icon-trophy"/></svg>', title: 'Star Performer', body: `${sorted[0].firstName} ${sorted[0].lastName} leads with ${sorted[0].points} points. Consider public recognition!` });
                 }
 
                 // Session frequency
@@ -2602,7 +2602,7 @@ body.role-admin .admin-only-block  { display:block; }
                     const gaps = [];
                     for (let i = 1; i < dates.length; i++) gaps.push((dates[i] - dates[i - 1]) / (1000 * 60 * 60 * 24));
                     const avgGap = Math.round(gaps.reduce((a, b) => a + b, 0) / gaps.length);
-                    insights.push({ type: '', icon: '📅', title: `Session Frequency: ~${avgGap} days`, body: `You run sessions approximately every ${avgGap} days. ${avgGap <= 7 ? 'Great consistency!' : 'Consider more frequent sessions for better engagement.'}` });
+                    insights.push({ type: '', icon: '<svg class="icon icon-sm"><use href="#icon-calendar"/></svg>', title: `Session Frequency: ~${avgGap} days`, body: `You run sessions approximately every ${avgGap} days. ${avgGap <= 7 ? 'Great consistency!' : 'Consider more frequent sessions for better engagement.'}` });
                 }
             }
 
@@ -2620,7 +2620,7 @@ body.role-admin .admin-only-block  { display:block; }
                 el.innerHTML = '<div style="color:var(--text3);font-size:12px;padding:10px 0;">No students with points yet.</div>';
                 return;
             }
-            const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+            const medals = ['<svg class="icon icon-sm"><use href="#icon-trophy"/></svg>', '<svg class="icon icon-sm"><use href="#icon-award"/></svg>', '<svg class="icon icon-sm"><use href="#icon-award"/></svg>', '4', '5'];
             el.innerHTML = top.map((s, i) => {
                 const tier = getTier(s.points || 0);
                 const att = getMemberAttendance(s.id, 'student');
@@ -2632,7 +2632,7 @@ body.role-admin .admin-only-block  { display:block; }
           <div class="member-name">${s.firstName} ${s.lastName}</div>
           <div class="member-sub">Grade ${s.grade} · ${att.rate}% attendance</div>
         </div>
-        <div class="pts-badge">⭐ ${s.points || 0}</div>
+        <div class="pts-badge"><svg class="icon icon-sm"><use href="#icon-star"/></svg> ${s.points || 0}</div>
       </div>
     </div>`;
             }).join('');
@@ -2684,7 +2684,7 @@ body.role-admin .admin-only-block  { display:block; }
             };
             saveSession();
             renderAttLists();
-            showToast('✅ Session info saved!');
+            showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Session info saved!');
         }
 
         function toggleSesGrade(btn, ctx) {
@@ -2720,7 +2720,7 @@ body.role-admin .admin-only-block  { display:block; }
 
             const el = document.getElementById('studAttList');
             if (studs.length === 0) {
-                el.innerHTML = `<div class="empty-state"><div class="ei">🎓</div><h3>No students found</h3><p>Add students or change grade filter</p></div>`;
+                el.innerHTML = `<div class="empty-state"><div class="ei"><svg class="icon icon-sm"><use href="#icon-graduate"/></svg></div><h3>No students found</h3><p>Add students or change grade filter</p></div>`;
                 return;
             }
             el.innerHTML = studs.map(s => {
@@ -2732,7 +2732,7 @@ body.role-admin .admin-only-block  { display:block; }
       <div class="att-info">
         <div class="att-name">${s.firstName} ${s.lastName}</div>
         <div class="att-meta">Grade ${s.grade} · ${att.rate}% hist.</div>
-        <div class="att-pts">⭐ ${s.points || 0} pts</div>
+        <div class="att-pts"><svg class="icon icon-sm"><use href="#icon-star"/></svg> ${s.points || 0} pts</div>
       </div>
       <div class="att-btns">
         <button class="att-btn P ${status === 'P' ? 'active' : ''}" onclick="markAtt('s','${s.id}','P')">P</button>
@@ -2748,7 +2748,7 @@ body.role-admin .admin-only-block  { display:block; }
             if (filter) vols = vols.filter(v => `${v.firstName} ${v.lastName}`.toLowerCase().includes(filter.toLowerCase()));
             const el = document.getElementById('volAttList');
             if (vols.length === 0) {
-                el.innerHTML = `<div class="empty-state"><div class="ei">🙌</div><h3>No volunteers yet</h3><p>Add volunteers in the Volunteers tab</p></div>`;
+                el.innerHTML = `<div class="empty-state"><div class="ei"><svg class="icon icon-sm"><use href="#icon-heart"/></svg></div><h3>No volunteers yet</h3><p>Add volunteers in the Volunteers tab</p></div>`;
                 return;
             }
             el.innerHTML = vols.map(v => {
@@ -2827,7 +2827,7 @@ body.role-admin .admin-only-block  { display:block; }
 
         function finalizeSession() {
             if (!currentSession.title) {
-                showToast('⚠️ Please fill session title first');
+                showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Please fill session title first');
                 return;
             }
             const grades = currentSesGrades;
@@ -2857,7 +2857,7 @@ body.role-admin .admin-only-block  { display:block; }
 
             generateReport(sessionRecord);
             goTab('report');
-            showToast('✅ Session saved! Report generated.');
+            showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Session saved! Report generated.');
         }
 
         function clearTodaySession() {
@@ -2869,7 +2869,7 @@ body.role-admin .admin-only-block  { display:block; }
             saveAtt();
             loadSessionFields();
             renderAttLists();
-            showToast('🗑️ Cleared');
+            showToast('<svg class="icon icon-sm"><use href="#icon-trash"/></svg> Cleared');
         }
 
         // ══════════════════════════════════════════════════
@@ -2910,7 +2910,7 @@ body.role-admin .admin-only-block  { display:block; }
 
             const el = document.getElementById('studentList');
             if (list.length === 0) {
-                el.innerHTML = `<div class="empty-state"><div class="ei">🎓</div><h3>No students yet</h3><p>Add students using the Add tab above</p></div>`;
+                el.innerHTML = `<div class="empty-state"><div class="ei"><svg class="icon icon-sm"><use href="#icon-graduate"/></svg></div><h3>No students yet</h3><p>Add students using the Add tab above</p></div>`;
                 return;
             }
             el.innerHTML = list.map(s => {
@@ -2924,7 +2924,7 @@ body.role-admin .admin-only-block  { display:block; }
           <div class="member-name">${s.firstName} ${s.lastName}</div>
           <div class="member-sub">Grade ${s.grade} ${s.studentId ? '· #' + s.studentId : ''}</div>
         </div>
-        <div class="pts-badge">⭐ ${s.points || 0}</div>
+        <div class="pts-badge"><svg class="icon icon-sm"><use href="#icon-star"/></svg> ${s.points || 0}</div>
       </div>
       <div class="member-badges">
         <span class="badge badge-blue">G${s.grade}</span>
@@ -2944,7 +2944,7 @@ body.role-admin .admin-only-block  { display:block; }
             const fn = document.getElementById('nsFName').value.trim();
             const ln = document.getElementById('nsLName').value.trim();
             const grade = document.getElementById('nsGrade').value;
-            if (!fn || !ln || !grade) { showToast('⚠️ Name and grade required'); return; }
+            if (!fn || !ln || !grade) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Name and grade required'); return; }
 
             const stu = {
                 id: 'stu_' + Date.now() + Math.random().toString(36).substr(2, 4),
@@ -2972,7 +2972,7 @@ body.role-admin .admin-only-block  { display:block; }
             document.getElementById('nsGender').value = '';
             document.getElementById('nsPoints').value = '0';
             renderStudentList();
-            showToast(`✅ ${fn} ${ln} added!`);
+            showToast(`<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> ${fn} ${ln} added!`);
         }
 
         function openStudentModal(id) {
@@ -2999,21 +2999,21 @@ body.role-admin .admin-only-block  { display:block; }
         <div style="font-size:12px;color:var(--text2);">Grade ${s.grade} ${s.studentId ? '· #' + s.studentId : ''} ${s.school ? '· ' + s.school : ''}</div>
         <div style="display:flex;gap:6px;margin-top:5px;flex-wrap:wrap;">
           <span class="tier-badge ${tier.cls}">${tier.name}</span>
-          <span class="pts-badge">⭐ ${s.points || 0} pts</span>
+          <span class="pts-badge"><svg class="icon icon-sm"><use href="#icon-star"/></svg> ${s.points || 0} pts</span>
         </div>
       </div>
     </div>
 
     <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
-      <div class="kpi b"><div class="kpi-icon">📊</div><div class="kpi-val" style="font-size:20px;">${att.rate}%</div><div class="kpi-label">Attendance</div></div>
-      <div class="kpi g"><div class="kpi-icon">📅</div><div class="kpi-val" style="font-size:20px;">${att.present}/${att.sessions}</div><div class="kpi-label">Sessions</div></div>
-      <div class="kpi a"><div class="kpi-icon">⭐</div><div class="kpi-val" style="font-size:20px;">${s.points || 0}</div><div class="kpi-label">Points</div></div>
+      <div class="kpi b"><div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-chart-bar"/></svg></div><div class="kpi-val" style="font-size:20px;">${att.rate}%</div><div class="kpi-label">Attendance</div></div>
+      <div class="kpi g"><div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-calendar"/></svg></div><div class="kpi-val" style="font-size:20px;">${att.present}/${att.sessions}</div><div class="kpi-label">Sessions</div></div>
+      <div class="kpi a"><div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-star"/></svg></div><div class="kpi-val" style="font-size:20px;">${s.points || 0}</div><div class="kpi-label">Points</div></div>
     </div>
 
-    <div class="sec-hd">📍 Attendance Streak</div>
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-pin"/></svg> Attendance Streak</div>
     <div class="streak-row">${streakHtml}</div>
 
-    <div class="sec-hd">👤 Info</div>
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-user"/></svg> Info</div>
     <div class="report-info">
       ${s.parentName ? `<div class="report-info-item"><div class="label">Parent</div><div class="val">${s.parentName}</div></div>` : ''}
       ${s.mobile ? `<div class="report-info-item"><div class="label">Mobile</div><div class="val">${s.mobile}</div></div>` : ''}
@@ -3023,13 +3023,13 @@ body.role-admin .admin-only-block  { display:block; }
       ${s.emergency ? `<div class="report-info-item"><div class="label">Emergency</div><div class="val">${s.emergency}</div></div>` : ''}
     </div>
 
-    <div class="sec-hd">📝 Notes & Observations</div>
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-note"/></svg> Notes & Observations</div>
     <div id="stuNotesList">${renderNotesHtml(s.notes || [])}</div>
 
-    <div class="sec-hd">⭐ Points History</div>
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-star"/></svg> Points History</div>
     <div class="pts-log">${(s.pointsLog || []).slice(0, 8).map(p => `
       <div class="pts-log-item">
-        <div class="pts-log-icon">${p.amount > 0 ? '⭐' : '⚠️'}</div>
+        <div class="pts-log-icon">${p.amount > 0 ? '<svg class="icon icon-sm"><use href="#icon-star"/></svg>' : '<svg class="icon icon-sm"><use href="#icon-alert"/></svg>'}</div>
         <div class="pts-log-info">
           <div class="pts-log-reason">${p.reason || p.category || 'Points update'}</div>
           <div class="pts-log-date">${fmtDate(p.date)} · ${p.category || ''}</div>
@@ -3040,10 +3040,10 @@ body.role-admin .admin-only-block  { display:block; }
 
     <div class="divider"></div>
     <div class="btn-row">
-      <button class="btn btn-amber" onclick="openPoints('${s.id}','student')">⭐ Points</button>
-      <button class="btn btn-outline" onclick="openNote('${s.id}','student')">📝 Note</button>
-      <button class="btn btn-ghost" onclick="editStudent('${s.id}')">✏️ Edit</button>
-      <button class="btn btn-red btn-sm" onclick="deleteStudent('${s.id}')">🗑️</button>
+      <button class="btn btn-amber" onclick="openPoints('${s.id}','student')"><svg class="icon icon-sm"><use href="#icon-star"/></svg> Points</button>
+      <button class="btn btn-outline" onclick="openNote('${s.id}','student')"><svg class="icon icon-sm"><use href="#icon-note"/></svg> Note</button>
+      <button class="btn btn-ghost" onclick="editStudent('${s.id}')"><svg class="icon icon-sm"><use href="#icon-edit"/></svg> Edit</button>
+      <button class="btn btn-red btn-sm" onclick="deleteStudent('${s.id}')"><svg class="icon icon-sm"><use href="#icon-trash"/></svg></button>
     </div>
   `;
             openModal('modalStudent');
@@ -3066,7 +3066,7 @@ body.role-admin .admin-only-block  { display:block; }
             deleteStudentFromFirebase(id);
             closeModal('modalStudent');
             renderStudentList();
-            showToast('🗑️ Student deleted');
+            showToast('<svg class="icon icon-sm"><use href="#icon-trash"/></svg> Student deleted');
         }
 
         function editStudent(id) {
@@ -3077,7 +3077,7 @@ body.role-admin .admin-only-block  { display:block; }
             // Simple edit form in modal
             openModal('modalStudent');
             el.innerHTML = `
-    <div class="modal-title">✏️ Edit Student</div>
+    <div class="modal-title"><svg class="icon icon-sm"><use href="#icon-edit"/></svg> Edit Student</div>
     <div class="form-row">
       <div class="form-group"><label>First Name</label><input type="text" id="efFName" value="${s.firstName}"></div>
       <div class="form-group"><label>Last Name</label><input type="text" id="efLName" value="${s.lastName}"></div>
@@ -3097,7 +3097,7 @@ body.role-admin .admin-only-block  { display:block; }
     <div class="form-group"><label>School</label><input type="text" id="efSchool" value="${s.school || ''}"></div>
     <div class="form-group"><label>Emergency</label><input type="tel" id="efEmerg" value="${s.emergency || ''}"></div>
     <div class="btn-row">
-      <button class="btn btn-primary btn-full" onclick="saveStudentEdit('${id}')">💾 Save Changes</button>
+      <button class="btn btn-primary btn-full" onclick="saveStudentEdit('${id}')"><svg class="icon icon-sm"><use href="#icon-save"/></svg> Save Changes</button>
       <button class="btn btn-ghost" onclick="closeModal('modalStudent')">Cancel</button>
     </div>
   `;
@@ -3122,7 +3122,7 @@ body.role-admin .admin-only-block  { display:block; }
             saveStudentToFirebase(s);
             closeModal('modalStudent');
             renderStudentList();
-            showToast('✅ Student updated!');
+            showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Student updated!');
         }
 
         function refreshStudStats() {
@@ -3141,7 +3141,7 @@ body.role-admin .admin-only-block  { display:block; }
 
             // Full leaderboard
             const sorted = [...db.students].sort((a, b) => (b.points || 0) - (a.points || 0));
-            const medals = ['🥇', '🥈', '🥉'];
+            const medals = ['<svg class="icon icon-sm"><use href="#icon-trophy"/></svg>', '<svg class="icon icon-sm"><use href="#icon-award"/></svg>', '<svg class="icon icon-sm"><use href="#icon-award"/></svg>'];
             document.getElementById('leaderboardFull').innerHTML = sorted.length === 0 ?
                 '<div style="color:var(--text3);font-size:12px;">No students yet</div>' :
                 sorted.map((s, i) => {
@@ -3153,17 +3153,17 @@ body.role-admin .admin-only-block  { display:block; }
           <div class="pts-log-reason">${s.firstName} ${s.lastName} – G${s.grade}</div>
           <div class="pts-log-date">${att.rate}% att · ${tier.name}</div>
         </div>
-        <div class="pts-log-val plus">⭐${s.points || 0}</div>
+        <div class="pts-log-val plus"><svg class="icon icon-sm"><use href="#icon-star"/></svg>${s.points || 0}</div>
       </div>`;
                 }).join('');
 
             // At-risk list
             document.getElementById('atRiskList').innerHTML = atRisk.length === 0 ?
-                '<div style="color:var(--green);font-size:12px;">✅ No students at risk – great job!</div>' :
+                '<div style="color:var(--green);font-size:12px;"><svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> No students at risk – great job!</div>' :
                 atRisk.map(s => {
                     const a = getMemberAttendance(s.id, 'student');
                     return `<div class="insight-card danger" onclick="openStudentModal('${s.id}')" style="cursor:pointer;">
-        <div class="insight-hd"><span class="insight-icon">⚠️</span><span class="insight-title">${s.firstName} ${s.lastName}</span></div>
+        <div class="insight-hd"><span class="insight-icon"><svg class="icon icon-sm"><use href="#icon-alert"/></svg></span><span class="insight-title">${s.firstName} ${s.lastName}</span></div>
         <div class="insight-body">Grade ${s.grade} · Only ${a.rate}% attendance (${a.present}/${a.sessions} sessions) · Parent: ${s.mobile || 'No contact'}</div>
       </div>`;
                 }).join('');
@@ -3187,7 +3187,7 @@ body.role-admin .admin-only-block  { display:block; }
             document.getElementById('volCount').textContent = `${list.length} volunteer${list.length !== 1 ? 's' : ''}`;
             const el = document.getElementById('volunteerList');
             if (list.length === 0) {
-                el.innerHTML = `<div class="empty-state"><div class="ei">🙌</div><h3>No volunteers yet</h3><p>Add volunteers using the Add tab above</p></div>`;
+                el.innerHTML = `<div class="empty-state"><div class="ei"><svg class="icon icon-sm"><use href="#icon-heart"/></svg></div><h3>No volunteers yet</h3><p>Add volunteers using the Add tab above</p></div>`;
                 return;
             }
             el.innerHTML = list.map(v => {
@@ -3202,7 +3202,7 @@ body.role-admin .admin-only-block  { display:block; }
         </div>
         <span class="badge badge-${attColor}">${att.rate}%</span>
       </div>
-      ${v.skills ? `<div style="font-size:11px;color:var(--text2);margin-top:8px;">🛠 ${v.skills}</div>` : ''}
+      ${v.skills ? `<div style="font-size:11px;color:var(--text2);margin-top:8px;"><svg class="icon icon-sm"><use href="#icon-settings"/></svg> ${v.skills}</div>` : ''}
     </div>`;
             }).join('');
         }
@@ -3210,7 +3210,7 @@ body.role-admin .admin-only-block  { display:block; }
         function addVolunteer() {
             const fn = document.getElementById('nvFName').value.trim();
             const ln = document.getElementById('nvLName').value.trim();
-            if (!fn || !ln) { showToast('⚠️ Name required'); return; }
+            if (!fn || !ln) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Name required'); return; }
             const vol = {
                 id: 'vol_' + Date.now() + Math.random().toString(36).substr(2, 4),
                 firstName: fn, lastName: ln,
@@ -3229,7 +3229,7 @@ body.role-admin .admin-only-block  { display:block; }
             ['nvFName', 'nvLName', 'nvMobile', 'nvEmail', 'nvSkills', 'nvNote'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
             document.getElementById('nvRole').value = '';
             renderVolunteerList();
-            showToast(`✅ ${fn} ${ln} added!`);
+            showToast(`<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> ${fn} ${ln} added!`);
         }
 
         function openVolModal(id) {
@@ -3246,32 +3246,32 @@ body.role-admin .admin-only-block  { display:block; }
       </div>
     </div>
     <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
-      <div class="kpi b"><div class="kpi-icon">📊</div><div class="kpi-val" style="font-size:20px;">${att.rate}%</div><div class="kpi-label">Attendance</div></div>
-      <div class="kpi g"><div class="kpi-icon">📅</div><div class="kpi-val" style="font-size:20px;">${att.present}/${att.sessions}</div><div class="kpi-label">Sessions</div></div>
-      <div class="kpi a"><div class="kpi-icon">⭐</div><div class="kpi-val" style="font-size:20px;">${v.points || 0}</div><div class="kpi-label">Points</div></div>
+      <div class="kpi b"><div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-chart-bar"/></svg></div><div class="kpi-val" style="font-size:20px;">${att.rate}%</div><div class="kpi-label">Attendance</div></div>
+      <div class="kpi g"><div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-calendar"/></svg></div><div class="kpi-val" style="font-size:20px;">${att.present}/${att.sessions}</div><div class="kpi-label">Sessions</div></div>
+      <div class="kpi a"><div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-star"/></svg></div><div class="kpi-val" style="font-size:20px;">${v.points || 0}</div><div class="kpi-label">Points</div></div>
     </div>
-    <div class="sec-hd">👤 Contact Info</div>
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-user"/></svg> Contact Info</div>
     <div class="report-info">
       ${v.mobile ? `<div class="report-info-item"><div class="label">Mobile</div><div class="val">${v.mobile}</div></div>` : ''}
       ${v.email ? `<div class="report-info-item"><div class="label">Email</div><div class="val">${v.email}</div></div>` : ''}
       ${v.skills ? `<div class="report-info-item"><div class="label">Skills</div><div class="val">${v.skills}</div></div>` : ''}
     </div>
-    <div class="sec-hd">📝 Notes</div>
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-note"/></svg> Notes</div>
     <div>${renderNotesHtml(v.notes || [])}</div>
-    <div class="sec-hd">⭐ Points History</div>
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-star"/></svg> Points History</div>
     <div class="pts-log">${(v.pointsLog || []).slice(0, 5).map(p => `
       <div class="pts-log-item">
-        <div class="pts-log-icon">${p.amount > 0 ? '⭐' : '⚠️'}</div>
+        <div class="pts-log-icon">${p.amount > 0 ? '<svg class="icon icon-sm"><use href="#icon-star"/></svg>' : '<svg class="icon icon-sm"><use href="#icon-alert"/></svg>'}</div>
         <div class="pts-log-info"><div class="pts-log-reason">${p.reason || p.category}</div><div class="pts-log-date">${fmtDate(p.date)}</div></div>
         <div class="pts-log-val ${p.amount > 0 ? 'plus' : 'minus'}">${p.amount > 0 ? '+' : ''}${p.amount}</div>
       </div>
     `).join('') || '<div style="color:var(--text3);font-size:12px;">No history</div>'}</div>
     <div class="divider"></div>
     <div class="btn-row">
-      <button class="btn btn-amber" onclick="openPoints('${v.id}','volunteer')">⭐ Points</button>
-      <button class="btn btn-outline" onclick="openNote('${v.id}','volunteer')">📝 Note</button>
-      <button class="btn btn-ghost" onclick="editVolunteer('${v.id}')">✏️ Edit</button>
-      <button class="btn btn-red btn-sm" onclick="deleteVolunteer('${v.id}')">🗑️</button>
+      <button class="btn btn-amber" onclick="openPoints('${v.id}','volunteer')"><svg class="icon icon-sm"><use href="#icon-star"/></svg> Points</button>
+      <button class="btn btn-outline" onclick="openNote('${v.id}','volunteer')"><svg class="icon icon-sm"><use href="#icon-note"/></svg> Note</button>
+      <button class="btn btn-ghost" onclick="editVolunteer('${v.id}')"><svg class="icon icon-sm"><use href="#icon-edit"/></svg> Edit</button>
+      <button class="btn btn-red btn-sm" onclick="deleteVolunteer('${v.id}')"><svg class="icon icon-sm"><use href="#icon-trash"/></svg></button>
     </div>
   `;
             openModal('modalVolunteer');
@@ -3284,7 +3284,7 @@ body.role-admin .admin-only-block  { display:block; }
             deleteVolunteerFromFirebase(id);
             closeModal('modalVolunteer');
             renderVolunteerList();
-            showToast('🗑️ Deleted');
+            showToast('<svg class="icon icon-sm"><use href="#icon-trash"/></svg> Deleted');
         }
 
         function editVolunteer(id) {
@@ -3294,7 +3294,7 @@ body.role-admin .admin-only-block  { display:block; }
             const el = document.getElementById('volunteerModalContent');
             openModal('modalVolunteer');
             el.innerHTML = `
-    <div class="modal-title">✏️ Edit Volunteer</div>
+    <div class="modal-title"><svg class="icon icon-sm"><use href="#icon-edit"/></svg> Edit Volunteer</div>
     <div class="form-row">
       <div class="form-group"><label>First Name</label><input type="text" id="evFName" value="${v.firstName}"></div>
       <div class="form-group"><label>Last Name</label><input type="text" id="evLName" value="${v.lastName}"></div>
@@ -3306,7 +3306,7 @@ body.role-admin .admin-only-block  { display:block; }
     <div class="form-group"><label>Email</label><input type="email" id="evEmail" value="${v.email || ''}"></div>
     <div class="form-group"><label>Skills</label><input type="text" id="evSkills" value="${v.skills || ''}"></div>
     <div class="btn-row">
-      <button class="btn btn-primary btn-full" onclick="saveVolEdit('${id}')">💾 Save</button>
+      <button class="btn btn-primary btn-full" onclick="saveVolEdit('${id}')"><svg class="icon icon-sm"><use href="#icon-save"/></svg> Save</button>
       <button class="btn btn-ghost" onclick="closeModal('modalVolunteer')">Cancel</button>
     </div>
   `;
@@ -3325,7 +3325,7 @@ body.role-admin .admin-only-block  { display:block; }
             saveVolunteerToFirebase(v);
             closeModal('modalVolunteer');
             renderVolunteerList();
-            showToast('✅ Updated!');
+            showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Updated!');
         }
 
         function refreshVolStats() {
@@ -3339,7 +3339,7 @@ body.role-admin .admin-only-block  { display:block; }
                 sorted.map((v, i) => {
                     const att = getMemberAttendance(v.id, 'volunteer');
                     return `<div class="pts-log-item" onclick="openVolModal('${v.id}')" style="cursor:pointer;margin-bottom:7px;">
-        <div class="pts-log-icon">${i < 3 ? ['🥇', '🥈', '🥉'][i] : '👤'}</div>
+        <div class="pts-log-icon">${i < 3 ? ['<svg class="icon icon-sm"><use href="#icon-trophy"/></svg>', '<svg class="icon icon-sm"><use href="#icon-award"/></svg>', '<svg class="icon icon-sm"><use href="#icon-award"/></svg>'][i] : '<svg class="icon icon-sm"><use href="#icon-user"/></svg>'}</div>
         <div class="pts-log-info">
           <div class="pts-log-reason">${v.firstName} ${v.lastName}</div>
           <div class="pts-log-date">${v.role || 'Volunteer'} · ${att.sessions} sessions</div>
@@ -3358,7 +3358,7 @@ body.role-admin .admin-only-block  { display:block; }
             document.getElementById('ptsMemberType').value = type;
             const list = type === 'student' ? db.students : db.volunteers;
             const m = list.find(x => x.id === id);
-            document.getElementById('ptsName').textContent = m ? `${m.firstName} ${m.lastName} · ⭐ ${m.points || 0} pts` : '';
+            document.getElementById('ptsName').textContent = m ? `${m.firstName} ${m.lastName} · <svg class="icon icon-sm"><use href="#icon-star"/></svg> ${m.points || 0} pts` : '';
             document.getElementById('ptsAmount').value = '';
             document.getElementById('ptsReason').value = '';
             openModal('modalPoints');
@@ -3370,12 +3370,12 @@ body.role-admin .admin-only-block  { display:block; }
             const amount = parseInt(document.getElementById('ptsAmount').value);
             const reason = document.getElementById('ptsReason').value.trim();
             const category = document.getElementById('ptsCat').value;
-            if (isNaN(amount) || amount === 0) { showToast('⚠️ Enter a valid points value'); return; }
+            if (isNaN(amount) || amount === 0) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Enter a valid points value'); return; }
             addPoints(id, type, amount, reason, category);
             closeModal('modalPoints');
             if (type === 'student') renderStudentList();
             else renderVolunteerList();
-            showToast(`${amount > 0 ? '⭐ +' + amount : '⚠️ ' + amount} points recorded!`);
+            showToast(`${amount > 0 ? '<svg class="icon icon-sm"><use href="#icon-star"/></svg> +' + amount : '<svg class="icon icon-sm"><use href="#icon-alert"/></svg> ' + amount} points recorded!`);
         }
 
         function openNote(id, type) {
@@ -3391,7 +3391,7 @@ body.role-admin .admin-only-block  { display:block; }
             const type = document.getElementById('noteMemberType').value;
             const text = document.getElementById('noteText').value.trim();
             const noteType = document.getElementById('noteType').value;
-            if (!text) { showToast('⚠️ Write a note first'); return; }
+            if (!text) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Write a note first'); return; }
             const list = type === 'student' ? db.students : db.volunteers;
             const m = list.find(x => x.id === id);
             if (!m) return;
@@ -3401,7 +3401,7 @@ body.role-admin .admin-only-block  { display:block; }
             if (type === 'student') saveStudentToFirebase(m);
             else saveVolunteerToFirebase(m);
             closeModal('modalNote');
-            showToast('📝 Note saved!');
+            showToast('<svg class="icon icon-sm"><use href="#icon-note"/></svg> Note saved!');
         }
 
         // ══════════════════════════════════════════════════
@@ -3413,18 +3413,18 @@ body.role-admin .admin-only-block  { display:block; }
             document.getElementById('histCount').textContent = `${db.sessions.length} session${db.sessions.length !== 1 ? 's' : ''}`;
             const el = document.getElementById('historyList');
             if (sessions.length === 0) {
-                el.innerHTML = `<div class="empty-state"><div class="ei">📚</div><h3>No sessions recorded</h3><p>Complete a session to see it here</p></div>`;
+                el.innerHTML = `<div class="empty-state"><div class="ei"><svg class="icon icon-sm"><use href="#icon-note"/></svg></div><h3>No sessions recorded</h3><p>Complete a session to see it here</p></div>`;
                 return;
             }
             el.innerHTML = sessions.map(s => {
                 const pct = s.stats?.pct || 0;
                 const color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--amber)' : 'var(--red)';
-                const typeLabels = { classroom: '📚', outdoor: '🏃', tour: '🗺️', workshop: '🛠️', assessment: '📝', event: '🎉', other: '📋' };
+                const typeLabels = { classroom: '<svg class="icon icon-sm"><use href="#icon-note"/></svg>', outdoor: '<svg class="icon icon-sm"><use href="#icon-users"/></svg>', tour: '<svg class="icon icon-sm"><use href="#icon-map-pin"/></svg>', workshop: '<svg class="icon icon-sm"><use href="#icon-settings"/></svg>', assessment: '<svg class="icon icon-sm"><use href="#icon-note"/></svg>', event: '<svg class="icon icon-sm"><use href="#icon-award"/></svg>', other: '<svg class="icon icon-sm"><use href="#icon-report"/></svg>' };
                 return `<div class="hist-card" onclick="openHistoryModal('${s.id}')">
       <div class="hist-top">
         <div>
           <div class="hist-date">${fmtDate(s.date)}</div>
-          <div class="hist-title">${typeLabels[s.type] || '📋'} ${s.title || 'Untitled'} ${s.num ? '· #' + s.num : ''}</div>
+          <div class="hist-title">${typeLabels[s.type] || '<svg class="icon icon-sm"><use href="#icon-report"/></svg>'} ${s.title || 'Untitled'} ${s.num ? '· #' + s.num : ''}</div>
         </div>
         <div class="hist-pct" style="color:${color}">${pct}%</div>
       </div>
@@ -3432,7 +3432,7 @@ body.role-admin .admin-only-block  { display:block; }
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
         <span class="badge badge-blue">${s.stats?.present || 0}/${s.stats?.total || 0} Present</span>
         ${s.grades && s.grades !== 'all' ? `<span class="badge badge-purple">G${s.grades}</span>` : '<span class="badge badge-purple">All Grades</span>'}
-        ${s.speaker ? `<span class="badge badge-amber">🎤 ${s.speaker}</span>` : ''}
+        ${s.speaker ? `<span class="badge badge-amber"><svg class="icon icon-sm"><use href="#icon-info"/></svg> ${s.speaker}</span>` : ''}
       </div>
     </div>`;
             }).join('');
@@ -3453,11 +3453,11 @@ body.role-admin .admin-only-block  { display:block; }
     <div style="font-size:18px;font-weight:800;margin-bottom:4px;">${s.title || 'Session'}</div>
     <div style="font-size:12px;color:var(--text2);margin-bottom:16px;">${fmtDate(s.date)} ${s.num ? '· #' + s.num : ''}</div>
     <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);">
-      <div class="kpi g"><div class="kpi-icon">✅</div><div class="kpi-val" style="font-size:20px;">${s.stats?.present || 0}</div><div class="kpi-label">Present</div></div>
-      <div class="kpi r"><div class="kpi-icon">❌</div><div class="kpi-val" style="font-size:20px;">${s.stats?.absent || 0}</div><div class="kpi-label">Absent</div></div>
-      <div class="kpi b"><div class="kpi-icon">📊</div><div class="kpi-val" style="font-size:20px;">${s.stats?.pct || 0}%</div><div class="kpi-label">Rate</div></div>
+      <div class="kpi g"><div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-check-circle"/></svg></div><div class="kpi-val" style="font-size:20px;">${s.stats?.present || 0}</div><div class="kpi-label">Present</div></div>
+      <div class="kpi r"><div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-close"/></svg></div><div class="kpi-val" style="font-size:20px;">${s.stats?.absent || 0}</div><div class="kpi-label">Absent</div></div>
+      <div class="kpi b"><div class="kpi-icon"><svg class="icon icon-sm"><use href="#icon-chart-bar"/></svg></div><div class="kpi-val" style="font-size:20px;">${s.stats?.pct || 0}%</div><div class="kpi-label">Rate</div></div>
     </div>
-    <div class="sec-hd">📋 Session Info</div>
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-report"/></svg> Session Info</div>
     <div class="report-info">
       <div class="report-info-item"><div class="label">Speaker</div><div class="val">${s.speaker || '—'}</div></div>
       <div class="report-info-item"><div class="label">Coordinator</div><div class="val">${s.coordinator || '—'}</div></div>
@@ -3466,19 +3466,19 @@ body.role-admin .admin-only-block  { display:block; }
       <div class="report-info-item"><div class="label">Type</div><div class="val">${s.type || '—'}</div></div>
       <div class="report-info-item"><div class="label">Grades</div><div class="val">${grades === 'all' ? 'All' : grades}</div></div>
     </div>
-    ${s.summary ? `<div class="sec-hd">📝 Summary</div><div style="font-size:12px;line-height:1.7;color:var(--text);">${s.summary}</div>` : ''}
-    <div class="sec-hd">✅ Present (${present.length})</div>
+    ${s.summary ? `<div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-note"/></svg> Summary</div><div style="font-size:12px;line-height:1.7;color:var(--text);">${s.summary}</div>` : ''}
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Present (${present.length})</div>
     <div style="font-size:12px;line-height:2;">${present.map(x => `<span class="badge badge-green" style="margin:2px;">${x.firstName} ${x.lastName}</span>`).join('') || '—'}</div>
-    <div class="sec-hd">❌ Absent (${absent.length})</div>
+    <div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-close"/></svg> Absent (${absent.length})</div>
     <div style="font-size:12px;line-height:2;">${absent.map(x => `<span class="badge badge-red" style="margin:2px;">${x.firstName} ${x.lastName}</span>`).join('') || '—'}</div>
     ${late.length > 0 ? `<div class="sec-hd">⏰ Late (${late.length})</div><div style="font-size:12px;line-height:2;">${late.map(x => `<span class="badge badge-amber" style="margin:2px;">${x.firstName} ${x.lastName}</span>`).join('')}</div>` : ''}
-    ${vols.length > 0 ? `<div class="sec-hd">🙌 Volunteers Present</div><div style="font-size:12px;line-height:2;">${vols.map(v => `<span class="badge badge-purple" style="margin:2px;">${v.firstName} ${v.lastName}</span>`).join('')}</div>` : ''}
+    ${vols.length > 0 ? `<div class="sec-hd"><svg class="icon icon-sm"><use href="#icon-heart"/></svg> Volunteers Present</div><div style="font-size:12px;line-height:2;">${vols.map(v => `<span class="badge badge-purple" style="margin:2px;">${v.firstName} ${v.lastName}</span>`).join('')}</div>` : ''}
     <div class="divider"></div>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="viewHistReport('${s.id}')">📄 Full Report</button>
-      <button class="btn btn-green" onclick="shareWA('${s.id}')">📲 WhatsApp</button>
-      <button class="btn btn-ghost" onclick="editHistSession('${s.id}')">✏️ Edit</button>
-      <button class="btn btn-red btn-sm" onclick="deleteSession('${s.id}')">🗑️</button>
+      <button class="btn btn-primary" onclick="viewHistReport('${s.id}')"><svg class="icon icon-sm"><use href="#icon-report"/></svg> Full Report</button>
+      <button class="btn btn-green" onclick="shareWA('${s.id}')"><svg class="icon icon-sm"><use href="#icon-phone"/></svg> WhatsApp</button>
+      <button class="btn btn-ghost" onclick="editHistSession('${s.id}')"><svg class="icon icon-sm"><use href="#icon-edit"/></svg> Edit</button>
+      <button class="btn btn-red btn-sm" onclick="deleteSession('${s.id}')"><svg class="icon icon-sm"><use href="#icon-trash"/></svg></button>
     </div>
   `;
             openModal('modalHistory');
@@ -3499,7 +3499,7 @@ body.role-admin .admin-only-block  { display:block; }
             deleteSessionFromFirebase(id);
             closeModal('modalHistory');
             renderHistory();
-            showToast('🗑️ Session deleted');
+            showToast('<svg class="icon icon-sm"><use href="#icon-trash"/></svg> Session deleted');
         }
 
         function editHistSession(id) {
@@ -3526,7 +3526,7 @@ body.role-admin .admin-only-block  { display:block; }
             document.querySelectorAll('#sesGradeFilter .stype-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.grades === currentSesGrades);
             });
-            showToast('✏️ Session loaded for editing');
+            showToast('<svg class="icon icon-sm"><use href="#icon-edit"/></svg> Session loaded for editing');
         }
 
         // Past session
@@ -3589,7 +3589,7 @@ body.role-admin .admin-only-block  { display:block; }
         function savePastSession() {
             const date = document.getElementById('psDate').value;
             const title = document.getElementById('psTitle').value.trim();
-            if (!date || !title) { showToast('⚠️ Date and title required'); return; }
+            if (!date || !title) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Date and title required'); return; }
 
             const grades = currentPsGrades;
             const studs = getStudentsForSession(grades);
@@ -3624,7 +3624,7 @@ body.role-admin .admin-only-block  { display:block; }
             Object.keys(psVAtt).forEach(k => delete psVAtt[k]);
             closeModal('modalPastSession');
             renderHistory();
-            showToast('✅ Past session saved!');
+            showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Past session saved!');
         }
 
         // ══════════════════════════════════════════════════
@@ -3643,13 +3643,13 @@ body.role-admin .admin-only-block  { display:block; }
             document.getElementById('reportCard').innerHTML = `
     <div class="report-preview" id="rPrev">
       <div class="report-hd">
-        <h2>💡 ${prog}</h2>
+        <h2><svg class="icon icon-sm"><use href="#icon-lightning"/></svg> ${prog}</h2>
         <p>${db.settings.orgName || ''} ${db.settings.location ? '· ' + db.settings.location : ''}</p>
         <div style="font-size:13px;font-weight:600;margin-top:6px;">${fmtDate(ses.date)} ${ses.num ? '· Session ' + ses.num : ''}</div>
       </div>
 
       <div class="report-sec">
-        <div class="report-sec-title">📋 Session Details</div>
+        <div class="report-sec-title"><svg class="icon icon-sm"><use href="#icon-report"/></svg> Session Details</div>
         <div class="report-info">
           <div class="report-info-item"><div class="label">Topic</div><div class="val">${ses.title || '—'}</div></div>
           <div class="report-info-item"><div class="label">Type</div><div class="val">${ses.type || '—'}</div></div>
@@ -3663,7 +3663,7 @@ body.role-admin .admin-only-block  { display:block; }
       </div>
 
       <div class="report-sec">
-        <div class="report-sec-title">📊 Attendance Summary</div>
+        <div class="report-sec-title"><svg class="icon icon-sm"><use href="#icon-chart-bar"/></svg> Attendance Summary</div>
         <div class="report-info">
           <div class="report-info-item"><div class="label">Total</div><div class="val">${ses.stats?.total || 0}</div></div>
           <div class="report-info-item"><div class="label">Present</div><div class="val" style="color:var(--green);">${ses.stats?.present || 0}</div></div>
@@ -3675,11 +3675,11 @@ body.role-admin .admin-only-block  { display:block; }
         <div class="att-rate-bar"><div class="att-rate-fill" style="width:${ses.stats?.pct || 0}%"></div></div>
       </div>
 
-      ${ses.summary ? `<div class="report-sec"><div class="report-sec-title">📝 Session Summary</div><p style="font-size:13px;line-height:1.7;">${ses.summary}</p></div>` : ''}
-      ${ses.learning ? `<div class="report-sec"><div class="report-sec-title">💡 Key Learnings</div><p style="font-size:13px;line-height:1.7;">${ses.learning}</p></div>` : ''}
+      ${ses.summary ? `<div class="report-sec"><div class="report-sec-title"><svg class="icon icon-sm"><use href="#icon-note"/></svg> Session Summary</div><p style="font-size:13px;line-height:1.7;">${ses.summary}</p></div>` : ''}
+      ${ses.learning ? `<div class="report-sec"><div class="report-sec-title"><svg class="icon icon-sm"><use href="#icon-lightning"/></svg> Key Learnings</div><p style="font-size:13px;line-height:1.7;">${ses.learning}</p></div>` : ''}
 
       <div class="report-sec">
-        <div class="report-sec-title">✅ Present Students (${present.length})</div>
+        <div class="report-sec-title"><svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Present Students (${present.length})</div>
         <table class="att-table">
           <tr><th>#</th><th>Name</th><th>Grade</th><th>Status</th></tr>
           ${present.map((s, i) => `<tr><td>${i + 1}</td><td>${s.firstName} ${s.lastName}</td><td>${s.grade}</td><td class="s-p">Present</td></tr>`).join('')}
@@ -3687,7 +3687,7 @@ body.role-admin .admin-only-block  { display:block; }
       </div>
 
       ${absent.length > 0 ? `<div class="report-sec">
-        <div class="report-sec-title">❌ Absent Students (${absent.length})</div>
+        <div class="report-sec-title"><svg class="icon icon-sm"><use href="#icon-close"/></svg> Absent Students (${absent.length})</div>
         <table class="att-table">
           <tr><th>#</th><th>Name</th><th>Grade</th><th>Status</th></tr>
           ${absent.map((s, i) => `<tr><td>${i + 1}</td><td>${s.firstName} ${s.lastName}</td><td>${s.grade}</td><td class="s-a">Absent</td></tr>`).join('')}
@@ -3703,11 +3703,11 @@ body.role-admin .admin-only-block  { display:block; }
       </div>`: ''}
 
       ${vols.length > 0 ? `<div class="report-sec">
-        <div class="report-sec-title">🙌 Volunteers Present (${vols.length})</div>
+        <div class="report-sec-title"><svg class="icon icon-sm"><use href="#icon-heart"/></svg> Volunteers Present (${vols.length})</div>
         <div style="font-size:13px;">${vols.map(v => `${v.firstName} ${v.lastName}${v.role ? ' (' + v.role + ')' : ''}`).join(', ')}</div>
       </div>`: ''}
 
-      ${ses.nextPlan ? `<div class="report-sec"><div class="report-sec-title">📅 Next Session Plan</div><p style="font-size:13px;line-height:1.7;">${ses.nextPlan}</p></div>` : ''}
+      ${ses.nextPlan ? `<div class="report-sec"><div class="report-sec-title"><svg class="icon icon-sm"><use href="#icon-calendar"/></svg> Next Session Plan</div><p style="font-size:13px;line-height:1.7;">${ses.nextPlan}</p></div>` : ''}
 
       <div style="text-align:center;font-size:11px;color:var(--text3);margin-top:20px;border-top:1px solid var(--border);padding-top:12px;">
         Generated by IDEALZ Management System · ${fmtDate(todayISO())}
@@ -3716,9 +3716,9 @@ body.role-admin .admin-only-block  { display:block; }
     </div>
 
     <div style="margin-top:14px;" class="btn-row">
-      <button class="btn btn-primary" onclick="downloadPDF('${ses.id}')">📄 Download PDF</button>
-      <button class="btn btn-green" onclick="shareWA('${ses.id}')">📲 WhatsApp</button>
-      <button class="btn btn-ghost" onclick="copyReport('${ses.id}')">📋 Copy Text</button>
+      <button class="btn btn-primary" onclick="downloadPDF('${ses.id}')"><svg class="icon icon-sm"><use href="#icon-report"/></svg> Download PDF</button>
+      <button class="btn btn-green" onclick="shareWA('${ses.id}')"><svg class="icon icon-sm"><use href="#icon-phone"/></svg> WhatsApp</button>
+      <button class="btn btn-ghost" onclick="copyReport('${ses.id}')"><svg class="icon icon-sm"><use href="#icon-report"/></svg> Copy Text</button>
     </div>
   `;
             window._lastReportSession = ses;
@@ -3798,9 +3798,9 @@ body.role-admin .admin-only-block  { display:block; }
                 }
 
                 doc.save(`IDEALZ_${ses.date}_Report.pdf`);
-                showToast('📄 PDF downloaded!');
+                showToast('<svg class="icon icon-sm"><use href="#icon-report"/></svg> PDF downloaded!');
             } catch (e) {
-                showToast('⚠️ PDF error. Try copying text instead.');
+                showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> PDF error. Try copying text instead.');
                 console.error(e);
             }
         }
@@ -3816,22 +3816,22 @@ body.role-admin .admin-only-block  { display:block; }
             const late = studs.filter(s => (ses.attendance || {})[s.id] === 'L');
             const vols = db.volunteers.filter(v => (ses.volAttendance || {})[v.id] === 'P');
 
-            let txt = `*💡 ${prog} – Session Report*\n`;
-            txt += `📅 ${fmtDate(ses.date)}${ses.num ? ' | Session ' + ses.num : ''}\n`;
-            txt += `📌 *${ses.title || 'Session'}*\n`;
-            if (ses.speaker) txt += `🎤 Speaker: ${ses.speaker}\n`;
-            if (ses.coordinator) txt += `📋 Coordinator: ${ses.coordinator}\n`;
-            if (ses.venue) txt += `📍 Venue: ${ses.venue}\n`;
-            txt += `\n📊 *Attendance*\n`;
+            let txt = `*${prog} – Session Report*\n`;
+            txt += `${fmtDate(ses.date)}${ses.num ? ' | Session ' + ses.num : ''}\n`;
+            txt += `*${ses.title || 'Session'}*\n`;
+            if (ses.speaker) txt += `Speaker: ${ses.speaker}\n`;
+            if (ses.coordinator) txt += `Coordinator: ${ses.coordinator}\n`;
+            if (ses.venue) txt += `Venue: ${ses.venue}\n`;
+            txt += `\n*Attendance*\n`;
             txt += `• Total: ${ses.stats?.total || 0}  |  Present: ${ses.stats?.present || 0}  |  Absent: ${ses.stats?.absent || 0}\n`;
             txt += `• Attendance Rate: *${ses.stats?.pct || 0}%*\n`;
-            if (present.length) txt += `\n✅ *Present (${present.length}):*\n${present.map((x, i) => `${i + 1}. ${x.firstName} ${x.lastName}`).join('\n')}\n`;
-            if (absent.length) txt += `\n❌ *Absent (${absent.length}):*\n${absent.map((x, i) => `${i + 1}. ${x.firstName} ${x.lastName}`).join('\n')}\n`;
-            if (late.length) txt += `\n⏰ *Late (${late.length}):*\n${late.map((x, i) => `${i + 1}. ${x.firstName} ${x.lastName}`).join('\n')}\n`;
-            if (vols.length) txt += `\n🙌 *Volunteers:* ${vols.map(v => v.firstName + ' ' + v.lastName).join(', ')}\n`;
-            if (ses.summary) txt += `\n📝 *Summary:*\n${ses.summary}\n`;
-            if (ses.learning) txt += `\n💡 *Key Learnings:*\n${ses.learning}\n`;
-            if (ses.nextPlan) txt += `\n📅 *Next Session:*\n${ses.nextPlan}\n`;
+            if (present.length) txt += `\nPresent (${present.length}):\n${present.map((x, i) => `${i + 1}. ${x.firstName} ${x.lastName}`).join('\n')}\n`;
+            if (absent.length) txt += `\nAbsent (${absent.length}):\n${absent.map((x, i) => `${i + 1}. ${x.firstName} ${x.lastName}`).join('\n')}\n`;
+            if (late.length) txt += `\nLate (${late.length}):\n${late.map((x, i) => `${i + 1}. ${x.firstName} ${x.lastName}`).join('\n')}\n`;
+            if (vols.length) txt += `\nVolunteers: ${vols.map(v => v.firstName + ' ' + v.lastName).join(', ')}\n`;
+            if (ses.summary) txt += `\nSummary:\n${ses.summary}\n`;
+            if (ses.learning) txt += `\nKey Learnings:\n${ses.learning}\n`;
+            if (ses.nextPlan) txt += `\nNext Session:\n${ses.nextPlan}\n`;
             txt += `\n_Sent from IDEALZ Management System_`;
 
             window.open('https://wa.me/?text=' + encodeURIComponent(txt), '_blank');
@@ -3851,7 +3851,7 @@ body.role-admin .admin-only-block  { display:block; }
             if (present.length) txt += `\nPresent: ${present.map(x => x.firstName + ' ' + x.lastName).join(', ')}`;
             if (absent.length) txt += `\nAbsent: ${absent.map(x => x.firstName + ' ' + x.lastName).join(', ')}`;
 
-            navigator.clipboard?.writeText(txt).then(() => showToast('📋 Copied!')).catch(() => showToast('⚠️ Copy failed'));
+            navigator.clipboard?.writeText(txt).then(() => showToast('<svg class="icon icon-sm"><use href="#icon-report"/></svg> Copied!')).catch(() => showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Copy failed'));
         }
 
         // ══════════════════════════════════════════════════
@@ -3875,24 +3875,24 @@ body.role-admin .admin-only-block  { display:block; }
             const a = document.createElement('a');
             a.href = url; a.download = `IDEALZ_Backup_${todayISO()}.json`; a.click();
             URL.revokeObjectURL(url);
-            showToast('📤 Data exported!');
+            showToast('<svg class="icon icon-sm"><use href="#icon-export"/></svg> Data exported!');
         }
 
         function importFromFile(input) {
             const file = input.files[0]; if (!file) return;
             const reader = new FileReader();
-            reader.onload = e => { try { processImport(JSON.parse(e.target.result)); } catch (err) { showToast('❌ Invalid file'); } };
+            reader.onload = e => { try { processImport(JSON.parse(e.target.result)); } catch (err) { showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Invalid file'); } };
             reader.readAsText(file);
         }
 
         function importFromText() {
             const txt = document.getElementById('importJson').value.trim();
-            if (!txt) { showToast('⚠️ Paste JSON first'); return; }
-            try { processImport(JSON.parse(txt)); } catch (e) { showToast('❌ Invalid JSON'); }
+            if (!txt) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Paste JSON first'); return; }
+            try { processImport(JSON.parse(txt)); } catch (e) { showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Invalid JSON'); }
         }
 
         function processImport(pkg) {
-            if (!pkg.type?.includes('idealz')) { showToast('❌ Not a valid IDEALZ export'); return; }
+            if (!pkg.type?.includes('idealz')) { showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Not a valid IDEALZ export'); return; }
             if (pkg.students) pkg.students.forEach(s => { if (!db.students.find(x => x.id === s.id)) db.students.push(s); });
             if (pkg.volunteers) pkg.volunteers.forEach(v => { if (!db.volunteers.find(x => x.id === v.id)) db.volunteers.push(v); });
             if (pkg.sessions) pkg.sessions.forEach(s => { if (!db.sessions.find(x => x.id === s.id)) db.sessions.push(s); });
@@ -3910,7 +3910,7 @@ body.role-admin .admin-only-block  { display:block; }
             }
             closeModal('modalSync');
             goTab('home');
-            showToast('✅ Data imported!');
+            showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Data imported!');
         }
 
         function openSyncExport() { openModal('modalSync'); }
@@ -3922,18 +3922,18 @@ body.role-admin .admin-only-block  { display:block; }
                 saveDB();
                 ids.forEach(id => deleteSessionFromFirebase(id));
                 renderHistory();
-                showToast('🗑️ History cleared');
+                showToast('<svg class="icon icon-sm"><use href="#icon-trash"/></svg> History cleared');
             }
         }
 
         function confirmClearAll() {
-            if (!confirm('⚠️ Delete ALL data including students, volunteers, and history? This cannot be undone!')) return;
+            if (!confirm('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Delete ALL data including students, volunteers, and history? This cannot be undone!')) return;
             if (!confirm('Are you absolutely sure?')) return;
             db = { students: [], volunteers: [], sessions: [], settings: { programName: 'IDEALZ', orgName: '', coordinatorContact: '', waGroup: '', location: '' } };
             currentSession = {}; todayAtt = {}; todayVolAtt = {};
             [DB_KEY, SES_KEY, ATT_KEY, VATT_KEY].forEach(k => localStorage.removeItem(k));
             goTab('home');
-            showToast('🗑️ All data cleared');
+            showToast('<svg class="icon icon-sm"><use href="#icon-trash"/></svg> All data cleared');
         }
 
         // ══════════════════════════════════════════════════
@@ -3963,7 +3963,7 @@ body.role-admin .admin-only-block  { display:block; }
         let toastTimer;
         function showToast(msg) {
             const t = document.getElementById('toast');
-            t.textContent = msg; t.classList.add('show');
+            t.innerHTML = msg; t.classList.add('show');
             clearTimeout(toastTimer);
             toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
         }
@@ -3994,7 +3994,7 @@ body.role-admin .admin-only-block  { display:block; }
         // ══════════════════════════════════════════════════
         function handleAuthClick() {
             if (!window.fbFns || !window.fbAuth) {
-                showToast('⚠️ Sign-in is still loading. Try again in a moment.');
+                showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Sign-in is still loading. Try again in a moment.');
                 return;
             }
             if (window.currentUser) {
@@ -4003,16 +4003,16 @@ body.role-admin .admin-only-block  { display:block; }
             } else {
                 // Sign in
                 window.fbFns.signInWithPopup(window.fbAuth, window.fbProvider)
-                    .then(() => showToast('✅ Signed in!'))
-                    .catch(e => showToast('❌ Sign-in failed: ' + e.message));
+                    .then(() => showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Signed in!'))
+                    .catch(e => showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Sign-in failed: ' + e.message));
             }
         }
 
         function handleSignOut() {
             if (!window.fbFns || !window.fbAuth) return;
             window.fbFns.signOut(window.fbAuth)
-                .then(() => { showToast('👋 Signed out'); closeModal('modalUserMenu'); })
-                .catch(e => showToast('❌ Error: ' + e.message));
+                .then(() => { showToast('<svg class="icon icon-sm"><use href="#icon-users"/></svg> Signed out'); closeModal('modalUserMenu'); })
+                .catch(e => showToast('<svg class="icon icon-sm"><use href="#icon-close"/></svg> Error: ' + e.message));
         }
 
         window.updateUIForRole = function () {
@@ -4025,7 +4025,7 @@ body.role-admin .admin-only-block  { display:block; }
             const label = document.getElementById('authLabel');
             const avatar = document.getElementById('authAvatar');
             if (user) {
-                label.textContent = role==='admin' ? '👑 ADMIN' : role==='operator' ? '🛠 OPS' : '⏳ PENDING';
+                label.textContent = role==='admin' ? '<svg class="icon icon-sm"><use href="#icon-crown"/></svg> ADMIN' : role==='operator' ? '<svg class="icon icon-sm"><use href="#icon-settings"/></svg> OPS' : '⏳ PENDING';
                 if (user.photoURL) { avatar.src=user.photoURL; avatar.style.display='block'; }
             } else {
                 label.textContent = 'SIGN IN';
@@ -4064,14 +4064,14 @@ body.role-admin .admin-only-block  { display:block; }
               <option value="admin">Admin</option>
             </select>
           </div>
-          <button class="btn btn-primary btn-full" style="margin-top:8px;" onclick="addApprovedUser()">➕ Approve User</button>
+          <button class="btn btn-primary btn-full" style="margin-top:8px;" onclick="addApprovedUser()"><svg class="icon icon-sm"><use href="#icon-plus"/></svg> Approve User</button>
         </div>
       </div>` : ''}
     ${role === 'pending' ? `
       <div class="notice" style="margin-top:16px;">⏳ Your account is pending admin approval. The admin will grant you access soon.</div>
     ` : ''}
     <div style="margin-top:16px;">
-      <button class="btn btn-ghost btn-full" onclick="handleSignOut()">🚪 Sign Out</button>
+      <button class="btn btn-ghost btn-full" onclick="handleSignOut()"><svg class="icon icon-sm"><use href="#icon-sign-out"/></svg> Sign Out</button>
     </div>
   `;
             if (role === 'admin') loadUserManagement();
@@ -4104,20 +4104,20 @@ body.role-admin .admin-only-block  { display:block; }
         async function updateUserRole(uid, role) {
             const { doc, updateDoc } = window.fbFns;
             await updateDoc(doc(window.fbDB, 'users', uid), { role, approved: role !== 'pending' && role !== 'revoked' });
-            showToast('✅ Role updated');
+            showToast('<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> Role updated');
             loadUserManagement();
         }
 
         async function addApprovedUser() {
             const email = document.getElementById('newUserEmail').value.trim();
             const role = document.getElementById('newUserRole').value;
-            if (!email) { showToast('⚠️ Enter an email'); return; }
+            if (!email) { showToast('<svg class="icon icon-sm"><use href="#icon-alert"/></svg> Enter an email'); return; }
             // Store pre-approved email — when they first login, their role will be set
             const { doc, setDoc, serverTimestamp } = window.fbFns;
             await setDoc(doc(window.fbDB, 'approvedEmails', email.replace('@', '_at_')), {
                 email, role, approvedAt: serverTimestamp()
             });
-            showToast(`✅ ${email} pre-approved as ${role}`);
+            showToast(`<svg class="icon icon-sm"><use href="#icon-check-circle"/></svg> ${email} pre-approved as ${role}`);
             document.getElementById('newUserEmail').value = '';
         }
 
